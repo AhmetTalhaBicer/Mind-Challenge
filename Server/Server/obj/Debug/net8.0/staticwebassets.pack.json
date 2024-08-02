@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\1302f590-d95a-4841-b309-3dea9bdc57ac.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\1302f590-d95a-4841-b309-3dea9bdc57ac.jpg"
+    },
+    {
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg"
+    },
+    {
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\99881d76-da59-461e-b23d-7218704e9756.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\99881d76-da59-461e-b23d-7218704e9756.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Server.props",
+      "PackagePath": "build\\Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Server.props",
+      "PackagePath": "buildMultiTargeting\\Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Server.props",
+      "PackagePath": "buildTransitive\\Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
