@@ -149,3 +149,4 @@ C:\Users\athlb\Documents\GitHub\github\Mind-Challenge\Server\Server\bin\Debug\ne
 C:\Users\athlb\Documents\GitHub\github\Mind-Challenge\Server\Server\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\athlb\Documents\GitHub\github\Mind-Challenge\Server\Server\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\athlb\Documents\GitHub\github\Mind-Challenge\Server\Server\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\athlb\Documents\GitHub\github\Mind-Challenge\Server\Server\obj\Debug\net8.0\Server.sourcelink.json

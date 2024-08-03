@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Server.Auth.DTO;
 using Server.Auth.Services;
+using System.Security.Claims;
 
 
 namespace Server.Auth.Controllers
@@ -77,10 +79,10 @@ namespace Server.Auth.Controllers
                 });
             }
         }
-    
 
-    // Kullanıcı Girişi
-    [HttpPost("login")]
+
+        // Kullanıcı Girişi
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO userLoginDTO)
         {
             try
@@ -103,5 +105,54 @@ namespace Server.Auth.Controllers
                 });
             }
         }
+
+
+        // Token Doğrulama
+        [HttpPost("validate-token")]
+        public IActionResult ValidateToken([FromBody] UserTokenDTO userTokenDTO)
+        {
+            try
+            {
+                var principal = _authServices.ValidateToken(userTokenDTO);
+                return Ok(new
+                {
+                    success = true,
+                    message = "Token is valid",
+                    user = new
+                    {
+                        id = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    }
+                });
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Token has expired",
+                    error = ex.Message
+                });
+            }
+            catch (SecurityTokenInvalidSignatureException ex)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Invalid token signature",
+                    error = ex.Message
+                });
+            }
+            catch (SecurityTokenException ex)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Invalid token",
+                    error = ex.Message
+                });
+            }
+        }
+
     }
+
 }

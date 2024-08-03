@@ -9,9 +9,9 @@ namespace Server.Auth.Services
 {
     public class AuthServices
     {
-        private readonly IUserRepository _userRepository; 
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
-        private readonly IPasswordHasher _passwordHasher; 
+        private readonly IPasswordHasher _passwordHasher;
 
         public AuthServices(IUserRepository userRepository, IConfiguration configuration, IPasswordHasher passwordHasher)
         {
@@ -116,6 +116,38 @@ namespace Server.Auth.Services
             return tokenHandler.WriteToken(token);
         }
 
-        
+        public ClaimsPrincipal ValidateToken(UserTokenDTO userTokenDTO)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Secret is not configured."));
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ClockSkew = TimeSpan.Zero // Optional: reduce the default clock skew for token expiry
+            };
+
+            try
+            {
+                var principal = tokenHandler.ValidateToken(userTokenDTO.Token, validationParameters, out SecurityToken validatedToken);
+                return principal;
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                throw new SecurityTokenException("Token has expired.", ex);
+            }
+            catch (SecurityTokenInvalidSignatureException ex)
+            {
+                throw new SecurityTokenException("Invalid token signature.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new SecurityTokenException("Invalid token.", ex);
+            }
+        }
     }
 }
+

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e98ybDKhAwvHQqBaBVZApj1neVyqppNW2tUZ73mOKKY=",
+  "Hash": "Kh3zUHxfrKfVFgC730s739swGtvmcEMsHpvh020L2Es=",
   "Source": "Server",
   "BasePath": "_content/Server",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\1302f590-d95a-4841-b309-3dea9bdc57ac.jpg",
+      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\27223174-1d41-4706-a793-11789f7109c0.jpg",
       "SourceId": "Server",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\",
       "BasePath": "_content/Server",
-      "RelativePath": "profile_pics/1302f590-d95a-4841-b309-3dea9bdc57ac.jpg",
+      "RelativePath": "profile_pics/27223174-1d41-4706-a793-11789f7109c0.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,15 +33,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\profile_pics\\1302f590-d95a-4841-b309-3dea9bdc57ac.jpg"
+      "OriginalItemSpec": "wwwroot\\profile_pics\\27223174-1d41-4706-a793-11789f7109c0.jpg"
     },
     {
-      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg",
+      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\377e6af0-02b4-409c-a555-903b01f5eef0.jpg",
       "SourceId": "Server",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\",
       "BasePath": "_content/Server",
-      "RelativePath": "profile_pics/5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg",
+      "RelativePath": "profile_pics/377e6af0-02b4-409c-a555-903b01f5eef0.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,15 +52,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\profile_pics\\5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg"
+      "OriginalItemSpec": "wwwroot\\profile_pics\\377e6af0-02b4-409c-a555-903b01f5eef0.jpg"
     },
     {
-      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\99881d76-da59-461e-b23d-7218704e9756.jpg",
+      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg",
       "SourceId": "Server",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\",
       "BasePath": "_content/Server",
-      "RelativePath": "profile_pics/99881d76-da59-461e-b23d-7218704e9756.jpg",
+      "RelativePath": "profile_pics/3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,7 +71,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\profile_pics\\99881d76-da59-461e-b23d-7218704e9756.jpg"
+      "OriginalItemSpec": "wwwroot\\profile_pics\\3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg"
     }
   ]
 }

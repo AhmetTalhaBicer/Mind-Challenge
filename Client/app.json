@@ -11,31 +11,25 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "jsEngine": "hermes"
     },
     "android": {
-      "permissions": [
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
-      ],
+      "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.Client"
+      "package": "com.anonymous.Client",
+      "jsEngine": "hermes"
     },
     "web": {
       "bundler": "metro",
       "output": "static"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-font",
-        {}
-      ]
-    ],
+    "plugins": ["expo-router", ["expo-font", {}]],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "jsEngine": "hermes"
   }
 }

@@ -63,6 +63,7 @@ namespace Server.Auth.DTO
         public required string Token { get; set; }
     }
 
+
     public class UserChangePasswordDTO
     {
         [Required]

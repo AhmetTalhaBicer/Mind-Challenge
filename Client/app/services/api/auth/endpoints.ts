@@ -1,6 +1,11 @@
 import http from "../../base";
-import { Auth_Login, Auth_ProfilePic, Auth_Signup } from "./constants";
-import { LoginDTO, SignupDTO } from "./types";
+import {
+  Auth_Login,
+  Auth_ProfilePic,
+  Auth_Signup,
+  Auth_ValidToken,
+} from "./constants";
+import { LoginDTO, SignupDTO, ValidateTokenDTO } from "./types";
 
 export const postSignup = async (data: SignupDTO) => {
   try {
@@ -36,4 +41,8 @@ export const postProfilePic = async (profilePicUri: string) => {
 
 export const postLogin = async (data: LoginDTO) => {
   return http.post(Auth_Login, data);
+};
+
+export const postValidateToken = async (data: ValidateTokenDTO) => {
+  return http.post(Auth_ValidToken, data);
 };

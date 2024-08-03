@@ -13,9 +13,11 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import COLORS from "../Home/constants/color";
 import * as ImagePicker from "expo-image-picker";
 import { postProfilePic } from "@/app/services/api/auth/endpoints";
+import COLORS from "../Welcome/constants/color";
+import useNotification from "@/app/hooks/useNotification";
+import Toast from "react-native-toast-message";
 
 const profileplaceholder = require("../../assets/edit-profile.png");
 const PROFILE_PIC_SIZE = 170;
@@ -29,6 +31,7 @@ interface SignupFormInputs {
 
 const SignupForm = () => {
   const { handleSignup } = useAuth();
+  const toastConfig = useNotification();
   const [loading, setLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState<string | undefined>();
   const navigation = useNavigation();
@@ -50,11 +53,20 @@ const SignupForm = () => {
       }
 
       const formData = { ...data, ProfilePicture: profilePictureUrl };
-      console.log("Submitting form data:", formData);
       await handleSignup(formData);
       navigation.navigate("Giriş Ekranı" as never);
+      Toast.show({
+        type: "success",
+        text1: "Başarılı",
+        text2: "Kayıt başarılı!",
+      });
     } catch (error) {
       console.error("Signup error:", error);
+      Toast.show({
+        type: "error",
+        text1: "Hata",
+        text2: "Kayıt başarısız!",
+      });
     } finally {
       setLoading(false);
     }
@@ -189,6 +201,7 @@ const SignupForm = () => {
           </View>
         </View>
       </View>
+      <Toast config={toastConfig} position="top" topOffset={20} />
     </SafeAreaView>
   );
 };
@@ -228,7 +241,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    paddingLeft: 22,
+    paddingLeft: 20,
   },
   textInput: {
     flex: 1,

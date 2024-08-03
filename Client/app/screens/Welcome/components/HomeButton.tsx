@@ -16,7 +16,7 @@ interface ButtonProps {
   style?: ViewStyle;
 }
 
-const HomeButton: React.FC<ButtonProps> = (props) => {
+const WelcomeButton: React.FC<ButtonProps> = (props) => {
   const filledBgColor = props.color || COLORS.primary;
   const outlinedColor = COLORS.white;
   const bgColor = props.filled ? filledBgColor : outlinedColor;
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeButton;
+export default WelcomeButton;

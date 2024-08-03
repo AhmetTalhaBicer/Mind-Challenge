@@ -1,11 +1,11 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\1302f590-d95a-4841-b309-3dea9bdc57ac.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\27223174-1d41-4706-a793-11789f7109c0.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Server</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Server</BasePath>
-      <RelativePath>profile_pics/1302f590-d95a-4841-b309-3dea9bdc57ac.jpg</RelativePath>
+      <RelativePath>profile_pics/27223174-1d41-4706-a793-11789f7109c0.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -14,14 +14,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\1302f590-d95a-4841-b309-3dea9bdc57ac.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\27223174-1d41-4706-a793-11789f7109c0.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\377e6af0-02b4-409c-a555-903b01f5eef0.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Server</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Server</BasePath>
-      <RelativePath>profile_pics/5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg</RelativePath>
+      <RelativePath>profile_pics/377e6af0-02b4-409c-a555-903b01f5eef0.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -30,14 +30,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\5b02cca1-10ca-4e74-a6a2-90ab924d9b55.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\377e6af0-02b4-409c-a555-903b01f5eef0.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\99881d76-da59-461e-b23d-7218704e9756.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Server</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Server</BasePath>
-      <RelativePath>profile_pics/99881d76-da59-461e-b23d-7218704e9756.jpg</RelativePath>
+      <RelativePath>profile_pics/3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -46,7 +46,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\99881d76-da59-461e-b23d-7218704e9756.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\profile_pics\3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>
