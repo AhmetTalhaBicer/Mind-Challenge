@@ -6,9 +6,10 @@ import {
   TextInput,
   StyleSheet,
   Pressable,
-  ActivityIndicator,
   SafeAreaView,
   Image,
+  Modal,
+  Platform,
 } from "react-native";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
@@ -18,14 +19,15 @@ import { postProfilePic } from "@/app/services/api/auth/endpoints";
 import COLORS from "../Welcome/constants/color";
 import useNotification from "@/app/hooks/useNotification";
 import Toast from "react-native-toast-message";
+import Loading from "@/app/components/Loading";
 
-const profileplaceholder = require("../../assets/edit-profile.png");
+const profileplaceholder = require("../../assets/auth/edit-profile.png");
 const PROFILE_PIC_SIZE = 170;
 
 interface SignupFormInputs {
   username: string;
   password: string;
-  ProfilePicture: string;
+  ProfilePicture?: string;
   biography?: string;
 }
 
@@ -34,6 +36,8 @@ const SignupForm = () => {
   const toastConfig = useNotification();
   const [loading, setLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState<string | undefined>();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const {
     control,
@@ -44,11 +48,9 @@ const SignupForm = () => {
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
     try {
       setLoading(true);
-      let profilePictureUrl =
-        profilePicture ||
-        "https://th.bing.com/th/id/OIP.audMX4ZGbvT2_GJTx2c4GgHaHw?rs=1&pid=ImgDetMain";
+      let profilePictureUrl = profilePicture || "default.jpeg";
 
-      if (profilePicture) {
+      if (profilePicture && profilePicture !== "default.jpeg") {
         profilePictureUrl = await postProfilePic(profilePicture);
       }
 
@@ -73,25 +75,54 @@ const SignupForm = () => {
   };
 
   const selectProfilePic = async () => {
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (permissionResult.granted === false) {
-      alert("Uygulamanın fotoğraflarınıza erişim izni gerekiyor!");
-      return;
+    if (Platform.OS === "web") {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = async (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            saveProfilePic(reader.result as string);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      input.click();
+    } else {
+      setModalVisible(true);
     }
-    const pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  };
 
-    if (
-      !pickerResult.canceled &&
-      pickerResult.assets &&
-      pickerResult.assets.length > 0
-    ) {
-      saveProfilePic(pickerResult.assets[0].uri);
+  const handleGalleryPermission = async (grant: boolean) => {
+    setModalVisible(false);
+    if (grant) {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        Toast.show({
+          type: "error",
+          text1: "İzin Gerekli",
+          text2: "Uygulamanın fotoğraflarınıza erişim izni gerekiyor!",
+        });
+        return;
+      }
+
+      const pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (
+        !pickerResult.canceled &&
+        pickerResult.assets &&
+        pickerResult.assets.length > 0
+      ) {
+        saveProfilePic(pickerResult.assets[0].uri);
+      }
     }
   };
 
@@ -154,7 +185,7 @@ const SignupForm = () => {
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 placeholder="Şifre"
-                secureTextEntry
+                secureTextEntry={!passwordVisible}
                 style={styles.textInput}
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -163,6 +194,14 @@ const SignupForm = () => {
             )}
             name="password"
           />
+          <Pressable onPress={() => setPasswordVisible(!passwordVisible)}>
+            <Icon
+              name={passwordVisible ? "eye" : "eye-slash"}
+              size={24}
+              color={COLORS.black}
+              style={{ marginRight: 15 }}
+            />
+          </Pressable>
           {errors.password && (
             <Text style={styles.errorText}>{errors.password.message}</Text>
           )}
@@ -185,7 +224,7 @@ const SignupForm = () => {
         </View>
         <View style={styles.bottomContainer}>
           {loading ? (
-            <ActivityIndicator size="large" color={COLORS.primary} />
+            <Loading message="Profil oluşturuluyor..." />
           ) : (
             <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
               <Text style={styles.buttonText}>Profil Oluştur</Text>
@@ -202,6 +241,36 @@ const SignupForm = () => {
         </View>
       </View>
       <Toast config={toastConfig} position="top" topOffset={20} />
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Bu uygulama profil resminizi seçmek için galeriye erişim sağlamak
+              istiyor. İzin veriyor musunuz?
+            </Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={[styles.modalButton, styles.buttonCancel]}
+                onPress={() => handleGalleryPermission(false)}
+              >
+                <Text style={styles.textStyle}>Hayır</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.modalButton, styles.buttonAccept]}
+                onPress={() => handleGalleryPermission(true)}
+              >
+                <Text style={styles.textStyle}>Evet</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -283,6 +352,56 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     marginLeft: 4,
     fontSize: 15,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 18,
+    color: COLORS.black,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  modalButton: {
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    width: "45%",
+    alignItems: "center",
+  },
+  buttonCancel: {
+    backgroundColor: "red",
+  },
+  buttonAccept: {
+    backgroundColor: COLORS.primary,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

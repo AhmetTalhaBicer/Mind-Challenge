@@ -14,19 +14,19 @@ const Welcome = ({ navigation }: { navigation: NavigationProp<any> }) => {
       <View style={{ flex: 1 }}>
         <View>
           <Image
-            source={require("../../assets/home/science.png")}
+            source={require("../../assets/welcome/science.png")}
             style={styles.image1}
           />
           <Image
-            source={require("../../assets/home/kupa1.png")}
+            source={require("../../assets/welcome/kupa1.png")}
             style={styles.image2}
           />
           <Image
-            source={require("../../assets/home/podium1.png")}
+            source={require("../../assets/welcome/podium1.png")}
             style={styles.image3}
           />
           <Image
-            source={require("../../assets/home/philosophy.png")}
+            source={require("../../assets/welcome/philosophy.png")}
             style={styles.image4}
           />
         </View>

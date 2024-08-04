@@ -1,16 +1,24 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\27223174-1d41-4706-a793-11789f7109c0.jpg",
-      "PackagePath": "staticwebassets\\profile_pics\\27223174-1d41-4706-a793-11789f7109c0.jpg"
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\3ed2c5a9-755b-4ae1-bdf9-674eb582accf.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\3ed2c5a9-755b-4ae1-bdf9-674eb582accf.jpg"
     },
     {
-      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\377e6af0-02b4-409c-a555-903b01f5eef0.jpg",
-      "PackagePath": "staticwebassets\\profile_pics\\377e6af0-02b4-409c-a555-903b01f5eef0.jpg"
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\875ef13a-3af1-43b8-95fa-c1513274f6b6.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\875ef13a-3af1-43b8-95fa-c1513274f6b6.jpg"
     },
     {
-      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg",
-      "PackagePath": "staticwebassets\\profile_pics\\3dd0a161-05ef-43f2-b034-30d1cf0af324.jpg"
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\991dbd79-e07d-4916-a22f-5e7af85e9741.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\991dbd79-e07d-4916-a22f-5e7af85e9741.jpg"
+    },
+    {
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\default.jpeg",
+      "PackagePath": "staticwebassets\\profile_pics\\default.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\fd3afa4c-a832-4320-8c10-4ad8835070a7.jpg",
+      "PackagePath": "staticwebassets\\profile_pics\\fd3afa4c-a832-4320-8c10-4ad8835070a7.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Server.Microsoft.AspNetCore.StaticWebAssets.props",

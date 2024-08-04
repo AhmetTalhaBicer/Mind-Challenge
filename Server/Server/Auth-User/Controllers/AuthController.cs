@@ -56,7 +56,7 @@ namespace Server.Auth.Controllers
                     return BadRequest(new
                     {
                         success = false,
-                        message = "Profil resmi yüklenemedi."
+                        message = "Profile picture is required."
                     });
                 }
 
@@ -65,7 +65,7 @@ namespace Server.Auth.Controllers
                 return Ok(new
                 {
                     success = true,
-                    message = "Profil resmi başarıyla yüklendi.",
+                    message = "Profile picture uploaded successfully.",
                     fileName // Return the file name to the client
                 });
             }
@@ -74,11 +74,12 @@ namespace Server.Auth.Controllers
                 return BadRequest(new
                 {
                     success = false,
-                    message = "Profil resmi yüklenirken bir hata oluştu.",
+                    message = "Error uploading profile picture.",
                     error = ex.Message
                 });
             }
         }
+
 
 
         // Kullanıcı Girişi
@@ -87,12 +88,12 @@ namespace Server.Auth.Controllers
         {
             try
             {
-                var userToken = await _authServices.LoginUser(userLoginDTO);
+                var userResponse = await _authServices.LoginUser(userLoginDTO);
                 return Ok(new
                 {
                     success = true,
                     message = "Login successful",
-                    result = userToken
+                    result = userResponse
                 });
             }
             catch (Exception ex)
@@ -105,6 +106,7 @@ namespace Server.Auth.Controllers
                 });
             }
         }
+
 
 
         // Token Doğrulama

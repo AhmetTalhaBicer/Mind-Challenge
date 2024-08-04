@@ -63,6 +63,18 @@ namespace Server.Auth.DTO
         public required string Token { get; set; }
     }
 
+   public class UserLoginResponseDTO
+{
+    public required string Token { get; set; }
+    public UserDTO User { get; set; }
+
+    public class UserDTO
+    {
+        public required string Username { get; set; }
+        public required string ProfilePicture { get; set; }
+    }
+}
+
 
     public class UserChangePasswordDTO
     {

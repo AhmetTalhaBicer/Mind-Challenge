@@ -22,15 +22,17 @@ namespace Server.Auth.Services
 
         public async Task<UserResponseDTO> SignupUser(UserSignUpDTO userSignUpDTO)
         {
+            var profilePicture = userSignUpDTO.ProfilePicture ?? "default.jpeg";
+
             var user = new UserEntity
             {
                 Username = userSignUpDTO.Username,
                 Biography = userSignUpDTO.Biography,
-                ProfilePicture = userSignUpDTO.ProfilePicture,
-                PasswordHash = _passwordHasher.HashPassword(userSignUpDTO.Password) // Hash the password
+                ProfilePicture = profilePicture,
+                PasswordHash = _passwordHasher.HashPassword(userSignUpDTO.Password)
             };
 
-            var result = await _userRepository.CreateAsync(user); // Save the user with the hashed password
+            var result = await _userRepository.CreateAsync(user);
 
             if (!result)
             {
@@ -41,7 +43,7 @@ namespace Server.Auth.Services
             {
                 UserId = user.UserId,
                 Username = user.Username,
-                ProfilePicture = user.ProfilePicture,
+                ProfilePicture = $"/profile_pics/{user.ProfilePicture}",
                 Biography = user.Biography
             };
         }
@@ -54,28 +56,37 @@ namespace Server.Auth.Services
                 throw new ArgumentException("Profile picture is required.");
             }
 
-            // Klasör yolunu belirleyin ve gerekirse oluşturun
+            // Check the MIME type or file extension to ensure it's an image
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+            var extension = Path.GetExtension(profilePic.FileName).ToLowerInvariant();
+            if (!allowedExtensions.Contains(extension))
+            {
+                throw new ArgumentException("Invalid file format. Only JPG, JPEG, PNG, and GIF formats are allowed.");
+            }
+
+            // Define the directory path and create it if it doesn't exist
             var profilePicsDirectory = Path.Combine("wwwroot", "profile_pics");
             if (!Directory.Exists(profilePicsDirectory))
             {
                 Directory.CreateDirectory(profilePicsDirectory);
             }
 
-            // Dosya yolunu belirleyin
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(profilePic.FileName);
+            // Define the file path
+            var fileName = Guid.NewGuid().ToString() + extension;
             var filePath = Path.Combine(profilePicsDirectory, fileName);
 
-            // Dosyayı kaydedin
+            // Save the file
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await profilePic.CopyToAsync(stream);
             }
 
-            return fileName; // Kaydedilen dosya adını döndürün
+            return fileName; // Return the saved file name
         }
 
 
-        public async Task<UserTokenDTO> LoginUser(UserLoginDTO userLoginDTO)
+
+        public async Task<UserLoginResponseDTO> LoginUser(UserLoginDTO userLoginDTO)
         {
             var user = await _userRepository.FindByUsernameAsync(userLoginDTO.Username);
 
@@ -84,9 +95,14 @@ namespace Server.Auth.Services
                 throw new Exception("Invalid username or password.");
             }
 
-            return new UserTokenDTO
+            return new UserLoginResponseDTO
             {
-                Token = GenerateToken(user)
+                Token = GenerateToken(user),
+                User = new UserLoginResponseDTO.UserDTO
+                {
+                    Username = user.Username,
+                    ProfilePicture = user.ProfilePicture
+                }
             };
         }
 

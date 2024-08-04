@@ -17,13 +17,15 @@ import {
   ValidateTokenDTO,
 } from "../services/api/auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { baseURL } from "../services/base/index";
 
 interface AuthContextProps {
   handleSignup: (data: SignupDTO) => Promise<unknown>;
-  handleLogin: (data: LoginDTO) => Promise<{ token: string }>;
+  handleLogin: (data: LoginDTO) => Promise<void>;
   handleValidateToken: (data: ValidateTokenDTO) => Promise<unknown>;
   handleLogout: () => void;
   isAuthenticated: boolean;
+  user: { username: string; profilePicture: string } | null;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -36,6 +38,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const validateTokenMutation = useMutation(postValidateToken);
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<{
+    username: string;
+    profilePicture: string;
+  } | null>(null);
 
   const handleSignup = useMemo(
     () => async (data: SignupDTO) => {
@@ -55,9 +61,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       try {
         const response = await loginMutation.mutateAsync(data);
         const token = response.data.result.token;
+        const userData = response.data.result.user;
+        const profilePictureUrl = `${baseURL}/profile_pics/${userData.profilePicture}`;
         await AsyncStorage.setItem("token", token);
         setIsAuthenticated(true);
-        return response.data;
+        setUser({
+          username: userData.username,
+          profilePicture: profilePictureUrl,
+        });
       } catch (error) {
         console.error("Login error:", error);
         throw error;
@@ -82,6 +93,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const handleLogout = () => {
     AsyncStorage.removeItem("token");
     setIsAuthenticated(false);
+    setUser(null);
   };
 
   const authContextValue = useMemo(
@@ -91,6 +103,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       handleValidateToken,
       handleLogout,
       isAuthenticated,
+      user,
     }),
     [
       handleSignup,
@@ -98,6 +111,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       handleValidateToken,
       handleLogout,
       isAuthenticated,
+      user,
     ]
   );
 

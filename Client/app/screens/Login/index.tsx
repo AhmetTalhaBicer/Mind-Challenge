@@ -6,7 +6,6 @@ import {
   TextInput,
   StyleSheet,
   Pressable,
-  ActivityIndicator,
   SafeAreaView,
 } from "react-native";
 import { useAuth } from "../../context/AuthContext";
@@ -16,6 +15,7 @@ import COLORS from "../Welcome/constants/color";
 import LottieView from "lottie-react-native";
 import Toast from "react-native-toast-message";
 import useNotification from "@/app/hooks/useNotification";
+import Loading from "@/app/components/Loading";
 
 interface LoginFormInputs {
   username: string;
@@ -30,12 +30,18 @@ const LoginForm = () => {
   const toastConfig = useNotification();
   const [loading, setLoading] = useState(false);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigation = useNavigation();
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>();
+  } = useForm<LoginFormInputs>({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
@@ -44,7 +50,7 @@ const LoginForm = () => {
       setShowSuccessAnimation(true);
       setTimeout(() => {
         setShowSuccessAnimation(false);
-        navigation.navigate("Ana Ekran" as never);
+        navigation.navigate("MainTabs" as never);
       }, 3000);
     } catch (error) {
       console.error("Login error:", error);
@@ -115,7 +121,7 @@ const LoginForm = () => {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
                     placeholder="Şifre"
-                    secureTextEntry
+                    secureTextEntry={!passwordVisible}
                     style={styles.textInput}
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -124,6 +130,14 @@ const LoginForm = () => {
                 )}
                 name="password"
               />
+              <Pressable onPress={() => setPasswordVisible(!passwordVisible)}>
+                <Icon
+                  name={passwordVisible ? "eye" : "eye-slash"}
+                  size={24}
+                  color={COLORS.black}
+                  style={{ marginRight: 15 }}
+                />
+              </Pressable>
               {errors.password && (
                 <Text style={styles.errorText}>{errors.password.message}</Text>
               )}
@@ -131,7 +145,7 @@ const LoginForm = () => {
 
             <View style={styles.bottomContainer}>
               {loading ? (
-                <ActivityIndicator size="large" color={COLORS.primary} />
+                <Loading message="Giriş yapılıyor..." />
               ) : (
                 <Pressable
                   style={styles.button}
@@ -190,8 +204,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   successAnimation: {
-    width: 350,
-    height: 350,
+    width: 450,
+    height: 450,
   },
   inputContainer: {
     flexDirection: "row",
