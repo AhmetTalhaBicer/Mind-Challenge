@@ -22,6 +22,13 @@ namespace Server.Auth.Services
 
         public async Task<UserResponseDTO> SignupUser(UserSignUpDTO userSignUpDTO)
         {
+            // Check if username already exists
+            var existingUser = await _userRepository.FindByUsernameAsync(userSignUpDTO.Username);
+            if (existingUser != null)
+            {
+                throw new Exception("Username already exists.");
+            }
+
             var profilePicture = userSignUpDTO.ProfilePicture ?? "default.jpeg";
 
             var user = new UserEntity
@@ -47,7 +54,6 @@ namespace Server.Auth.Services
                 Biography = user.Biography
             };
         }
-
 
         public async Task<string> UploadProfilePicture(IFormFile profilePic)
         {
@@ -100,6 +106,7 @@ namespace Server.Auth.Services
                 Token = GenerateToken(user),
                 User = new UserLoginResponseDTO.UserDTO
                 {
+                    UserId = user.UserId,
                     Username = user.Username,
                     ProfilePicture = user.ProfilePicture
                 }

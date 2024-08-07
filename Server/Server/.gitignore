@@ -487,3 +487,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# content below from:
+Server/Server/wwwroot/profile_pics/

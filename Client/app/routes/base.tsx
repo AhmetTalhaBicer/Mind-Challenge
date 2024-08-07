@@ -5,6 +5,7 @@ import Login from "../screens/Login";
 import Signup from "../screens/Signup";
 import User from "../screens/User";
 import MainTabs from "./mainTabs";
+import QuizScreen from "../screens/Quiz";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,9 +15,7 @@ const Routes = () => {
       <Stack.Screen
         name="Hoş Geldin"
         component={Welcome}
-        options={{
-          headerShown: false,
-        }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="Giriş Ekranı" component={Login} />
       <Stack.Screen name="Kayıt Ekranı" component={Signup} />
@@ -25,6 +24,11 @@ const Routes = () => {
         name="MainTabs"
         component={MainTabs}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Quiz"
+        component={QuizScreen}
+        options={{ headerShown: true }}
       />
     </Stack.Navigator>
   );

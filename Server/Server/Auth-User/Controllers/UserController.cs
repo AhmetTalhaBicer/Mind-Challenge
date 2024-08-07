@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Server.Auth.DTO;
 using Server.Auth.Services;
-using System;
-using System.Threading.Tasks;
+
 
 namespace Server.Auth.Controllers
 {

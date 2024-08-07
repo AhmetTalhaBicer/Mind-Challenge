@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/tGmTPZ3WPHCzks47MWzyQ/wZ2dfZ58OEqtIjZO01b4=",
+  "Hash": "/htuNhmej/CSS1L5jxqxhlJBStQ3dD8kL9DyWbPwjD8=",
   "Source": "Server",
   "BasePath": "_content/Server",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\profile_pics\\991dbd79-e07d-4916-a22f-5e7af85e9741.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\b80732f8-0aef-4c7c-bd62-f0dade2b9630.jpg",
+      "SourceId": "Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\",
+      "BasePath": "_content/Server",
+      "RelativePath": "profile_pics/b80732f8-0aef-4c7c-bd62-f0dade2b9630.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\profile_pics\\b80732f8-0aef-4c7c-bd62-f0dade2b9630.jpg"
     },
     {
       "Identity": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\wwwroot\\profile_pics\\default.jpeg",

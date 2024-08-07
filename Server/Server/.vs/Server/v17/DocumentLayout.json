@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\auth-user\\services\\authservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:auth-user\\services\\authservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\auth-user\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:auth-user\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\userstatistics\\services\\userstatisticsservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:userstatistics\\services\\userstatisticsservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\auth-user\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:auth-user\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\userstatistics\\controllers\\userstatisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:userstatistics\\controllers\\userstatisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\userstatistics\\repositories\\iuserstatisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:userstatistics\\repositories\\iuserstatisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\userstatistics\\repositories\\userstatisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|solutionrelative:userstatistics\\repositories\\userstatisticsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C1FAF21B-6FDC-4631-8823-26EAEB08D085}|Server.csproj|c:\\users\\athlb\\documents\\github\\github\\mind-challenge\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,52 +54,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserDTO.cs",
-              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Auth-User\\DTO\\UserDTO.cs",
-              "RelativeDocumentMoniker": "Auth-User\\DTO\\UserDTO.cs",
-              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Auth-User\\DTO\\UserDTO.cs",
-              "RelativeToolTip": "Auth-User\\DTO\\UserDTO.cs",
-              "ViewState": "AQIAADoAAAAAAAAAAAAQwFkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T11:33:54.039Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AuthServices.cs",
-              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Auth-User\\Services\\AuthServices.cs",
-              "RelativeDocumentMoniker": "Auth-User\\Services\\AuthServices.cs",
-              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Auth-User\\Services\\AuthServices.cs",
-              "RelativeToolTip": "Auth-User\\Services\\AuthServices.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAkwCkAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T11:31:00.725Z",
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-06T06:45:41.353Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Auth-User\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Auth-User\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Auth-User\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Auth-User\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAYwFEAAAAAAAAA",
+              "Title": "UserStatisticsServices.cs",
+              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Services\\UserStatisticsServices.cs",
+              "RelativeDocumentMoniker": "UserStatistics\\Services\\UserStatisticsServices.cs",
+              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Services\\UserStatisticsServices.cs",
+              "RelativeToolTip": "UserStatistics\\Services\\UserStatisticsServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T11:28:14.76Z"
+              "WhenOpened": "2024-08-05T15:21:15.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserStatisticsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Repositories\\UserStatisticsRepository.cs",
+              "RelativeDocumentMoniker": "UserStatistics\\Repositories\\UserStatisticsRepository.cs",
+              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Repositories\\UserStatisticsRepository.cs",
+              "RelativeToolTip": "UserStatistics\\Repositories\\UserStatisticsRepository.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwCEAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-05T15:21:15.254Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "IUserStatisticsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Repositories\\IUserStatisticsRepository.cs",
+              "RelativeDocumentMoniker": "UserStatistics\\Repositories\\IUserStatisticsRepository.cs",
+              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Repositories\\IUserStatisticsRepository.cs",
+              "RelativeToolTip": "UserStatistics\\Repositories\\IUserStatisticsRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-05T15:21:14.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserStatisticsController.cs",
+              "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Controllers\\UserStatisticsController.cs",
+              "RelativeDocumentMoniker": "UserStatistics\\Controllers\\UserStatisticsController.cs",
+              "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\UserStatistics\\Controllers\\UserStatisticsController.cs",
+              "RelativeToolTip": "UserStatistics\\Controllers\\UserStatisticsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADwAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-05T15:21:12.814Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\athlb\\Documents\\GitHub\\github\\Mind-Challenge\\Server\\Server\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAFQAAAAAAAAAAAAAAG0AAAAVAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T12:16:33.071Z"
+              "WhenOpened": "2024-08-05T15:08:55.361Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             }
           ]
         }

@@ -1,25 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import UserInfo from "./components/UserInfo";
-import { useAuth } from "../../context/AuthContext";
-import Loading from "@/app/components/Loading";
 import Points from "./components/Points";
 import Category from "./components/Category";
 
 const Home = () => {
-  const { user } = useAuth();
-
-  if (!user) {
-    return (
-      <View style={styles.container}>
-        <Loading message="Loading user information..." />
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
-      <UserInfo username={user.username} profilePicture={user.profilePicture} />
+      <UserInfo />
       <Points />
       <Text style={styles.heading}>Haydi Kategorilere Göz At</Text>
       <Category />
@@ -31,11 +19,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 30,
+    backgroundColor: "#141414", // 1C1C1C = acık siyah
   },
   heading: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Roboto-Mono",
+    color: "#f5f5f5",
     letterSpacing: 0.1,
     textAlign: "left",
     marginLeft: 15,

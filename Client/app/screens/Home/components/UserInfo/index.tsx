@@ -1,21 +1,24 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Avatar, Text } from "react-native-paper";
+import { useAuth } from "@/app/context/AuthContext";
+import Loading from "@/app/components/Loading";
 
-interface UserInfoProps {
-  username: string;
-  profilePicture: string;
-}
+const UserInfo: React.FC = () => {
+  const { user } = useAuth();
 
-const UserInfo: React.FC<UserInfoProps> = ({ username, profilePicture }) => {
+  if (!user) {
+    return <Loading message="Loading user information..." />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.greeting}>Merhaba, {username}</Text>
+        <Text style={styles.greeting}>Merhaba, {user.username}</Text>
         <Text style={styles.subtitle}>Mind Challenge'a Hoşgeldiniz!</Text>
       </View>
       <Avatar.Image
-        source={{ uri: profilePicture }}
+        source={{ uri: user.profilePicture }}
         size={70}
         style={styles.profilePicture}
       />
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
   profilePicture: {},
   greeting: {
     fontSize: 20,
-    color: "black",
+    color: "#f5f5f5",
     fontWeight: "900",
     fontFamily: "Roboto-Serif",
   },
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     fontSize: 14,
     fontFamily: "Roboto-Mono",
-    color: "gray",
+    color: "#CCCCCC",
   },
 });
 

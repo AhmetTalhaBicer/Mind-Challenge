@@ -12,10 +12,10 @@ function MainTabs() {
     <Tab.Navigator
       initialRouteName="Ana Sayfa"
       screenOptions={{
-        tabBarActiveTintColor: "#2f95dc",
-        tabBarInactiveTintColor: "#8e8e93",
+        tabBarActiveTintColor: "#3CADC8",
+        tabBarInactiveTintColor: "#B0B0B0",
         tabBarStyle: {
-          backgroundColor: "#f8f8f8",
+          backgroundColor: "#1C1C1C",
           borderTopWidth: 0,
           elevation: 5,
           height: 60,

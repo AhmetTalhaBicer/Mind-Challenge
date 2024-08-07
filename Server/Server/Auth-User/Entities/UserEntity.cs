@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Server.UserStatistics.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 public class UserEntity
@@ -19,5 +20,6 @@ public class UserEntity
     [AllowNull]
     public string? Biography { get; set; }
 
+    public ICollection<UserStatisticsEntity> UserStatistics { get; set; } = new List<UserStatisticsEntity>();
 
 }

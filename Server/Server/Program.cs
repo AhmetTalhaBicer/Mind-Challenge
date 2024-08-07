@@ -1,17 +1,15 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Server.DB;
 using Server.Auth.Services;
 using Server.Auth.User.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Server.Category.Repositories;
+using Server.Category.Services;
+using Server.UserStatistics.Repositories;
+using Server.UserStatistics.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -94,6 +92,11 @@ builder.Services.AddScoped<AuthServices>();
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, SimplePasswordHasher>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<CategoryServices>();
+builder.Services.AddScoped<IUserStatisticsRepository, UserStatisticsRepository>();
+builder.Services.AddScoped<UserStatisticsServices>();
+
 
 var app = builder.Build();
 

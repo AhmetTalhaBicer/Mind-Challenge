@@ -70,6 +70,7 @@ namespace Server.Auth.DTO
 
     public class UserDTO
     {
+        public int UserId { get; set; }
         public required string Username { get; set; }
         public required string ProfilePicture { get; set; }
     }

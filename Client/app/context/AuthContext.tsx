@@ -25,7 +25,7 @@ interface AuthContextProps {
   handleValidateToken: (data: ValidateTokenDTO) => Promise<unknown>;
   handleLogout: () => void;
   isAuthenticated: boolean;
-  user: { username: string; profilePicture: string } | null;
+  user: { userId: string; username: string; profilePicture: string } | null;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -39,6 +39,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<{
+    userId: string;
     username: string;
     profilePicture: string;
   } | null>(null);
@@ -66,6 +67,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         await AsyncStorage.setItem("token", token);
         setIsAuthenticated(true);
         setUser({
+          userId: userData.userId,
           username: userData.username,
           profilePicture: profilePictureUrl,
         });

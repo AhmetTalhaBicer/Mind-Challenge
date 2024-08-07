@@ -21,6 +21,24 @@ namespace Server.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Server.Category.Entities.CategoryEntity", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("UserEntity", b =>
                 {
                     b.Property<int>("UserId")
@@ -48,6 +66,64 @@ namespace Server.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("UserStatisticsEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryPoints")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TotalPoints")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserStatistics");
+                });
+
+            modelBuilder.Entity("UserStatisticsEntity", b =>
+                {
+                    b.HasOne("Server.Category.Entities.CategoryEntity", "Category")
+                        .WithMany("UserStatistics")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UserEntity", "User")
+                        .WithMany("UserStatistics")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Server.Category.Entities.CategoryEntity", b =>
+                {
+                    b.Navigation("UserStatistics");
+                });
+
+            modelBuilder.Entity("UserEntity", b =>
+                {
+                    b.Navigation("UserStatistics");
                 });
 #pragma warning restore 612, 618
         }

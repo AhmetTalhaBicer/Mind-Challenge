@@ -2,6 +2,7 @@
   "expo": {
     "name": "Client",
     "slug": "Client",
+    "jsEngine": "hermes",
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "myapp",
@@ -25,11 +26,6 @@
     "web": {
       "bundler": "metro",
       "output": "static"
-    },
-    "plugins": ["expo-router", ["expo-font", {}]],
-    "experiments": {
-      "typedRoutes": true
-    },
-    "jsEngine": "hermes"
+    }
   }
 }
