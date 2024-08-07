@@ -489,4 +489,4 @@ $RECYCLE.BIN/
 *.swp
 
 # content below from:
-Server/Server/wwwroot/profile_pics/
+wwwroot/profile_pics/
