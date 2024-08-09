@@ -1,5 +1,4 @@
 ﻿using Server.UserStatistics.DTO;
-using Server.UserStatistics.Entities;
 using Server.UserStatistics.Repositories;
 
 namespace Server.UserStatistics.Services
@@ -22,25 +21,15 @@ namespace Server.UserStatistics.Services
         {
             return await _userStatisticsRepository.GetUserStatisticsByUserId(userId);
         }
-
-        public async Task<UserCategoryStatsDTO> GetUserCategoryStatistics(int userId, int categoryId)
+        public async Task<List<UserStatisticsDTO>> GetStatisticsByCategoryId(int categoryId)
         {
-            var userStatistics = await _userStatisticsRepository.GetUserCategoryStatistics(userId, categoryId);
-
-            if (userStatistics == null)
-            {
-                throw new KeyNotFoundException("User statistics for the given category not found.");
-            }
-
-            return new UserCategoryStatsDTO
-            {
-                UserId = userStatistics.UserId,
-                CategoryId = userStatistics.CategoryId,
-                CategoryPoints = userStatistics.CategoryPoints
-            };
+            return await _userStatisticsRepository.GetStatisticsByCategoryId(categoryId);
         }
 
-
+        public async Task<List<UserTotalPointsDTO>> GetAllUserTotalPoints()
+        {
+            return await _userStatisticsRepository.GetAllUserTotalPoints();
+        }
 
         public async Task<UserStatisticsDTO> CreateUserStatistics(CreateUserStatisticsDTO createUserStatisticsDTO)
         {
@@ -61,10 +50,6 @@ namespace Server.UserStatistics.Services
             await _userStatisticsRepository.DeleteUserStatisticsByUserId(userId);
         }
 
-        public async Task<List<UserStatisticsDTO>> GetStatisticsByCategoryId(int categoryId)
-        {
-            return await _userStatisticsRepository.GetStatisticsByCategoryId(categoryId);
-        }
 
         private async Task UpdateTotalPoints(int userId)
         {

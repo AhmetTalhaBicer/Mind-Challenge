@@ -23,5 +23,10 @@ namespace Server.Auth.User.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
+
+        public async Task<UserEntity> FindByIdAsync(int userId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+        }
     }
 }

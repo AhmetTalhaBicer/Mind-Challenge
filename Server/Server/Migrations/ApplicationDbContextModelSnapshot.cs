@@ -39,36 +39,7 @@ namespace Server.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("UserEntity", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Biography")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("UserStatisticsEntity", b =>
+            modelBuilder.Entity("Server.UserStatistics.Entities.UserStatisticsEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +68,40 @@ namespace Server.Migrations
                     b.ToTable("UserStatistics");
                 });
 
-            modelBuilder.Entity("UserStatisticsEntity", b =>
+            modelBuilder.Entity("UserEntity", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Biography")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Server.UserStatistics.Entities.UserStatisticsEntity", b =>
                 {
                     b.HasOne("Server.Category.Entities.CategoryEntity", "Category")
                         .WithMany("UserStatistics")

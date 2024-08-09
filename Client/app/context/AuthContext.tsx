@@ -1,9 +1,11 @@
+// AuthContext.tsx
 import React, {
   createContext,
   useContext,
   ReactNode,
   useMemo,
   useState,
+  useEffect,
 } from "react";
 import {
   postLogin,
@@ -11,21 +13,25 @@ import {
   postValidateToken,
 } from "../services/api/auth/endpoints";
 import { useMutation } from "react-query";
-import {
-  LoginDTO,
-  SignupDTO,
-  ValidateTokenDTO,
-} from "../services/api/auth/types";
+import { LoginDTO, SignupDTO } from "../services/api/auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { baseURL } from "../services/base/index";
 
 interface AuthContextProps {
   handleSignup: (data: SignupDTO) => Promise<unknown>;
   handleLogin: (data: LoginDTO) => Promise<void>;
-  handleValidateToken: (data: ValidateTokenDTO) => Promise<unknown>;
+  handleValidateToken: (token: string) => Promise<void>;
   handleLogout: () => void;
   isAuthenticated: boolean;
   user: { userId: string; username: string; profilePicture: string } | null;
+  setUser: React.Dispatch<
+    React.SetStateAction<{
+      userId: string;
+      username: string;
+      profilePicture: string;
+    } | null>
+  >;
+  loading: boolean; // Add loading state
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -43,6 +49,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     username: string;
     profilePicture: string;
   } | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Set initial loading state
+
+  useEffect(() => {
+    const checkToken = async () => {
+      setLoading(true);
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (token) {
+          await handleValidateToken(token);
+        } else {
+          console.log("No token found"); // Debugging line
+          handleLogout();
+        }
+      } catch (error) {
+        console.error("Error checking token:", error);
+        handleLogout();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkToken();
+  }, []);
 
   const handleSignup = useMemo(
     () => async (data: SignupDTO) => {
@@ -80,22 +109,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   );
 
   const handleValidateToken = useMemo(
-    () => async (data: ValidateTokenDTO) => {
+    () => async (token: string) => {
       try {
-        const response = await validateTokenMutation.mutateAsync(data);
-        return response.data;
+        const response = await validateTokenMutation.mutateAsync({ token });
+        const userData = response.data.user;
+        if (response.data.success) {
+          setIsAuthenticated(true);
+          setUser({
+            userId: userData.id,
+            username: userData.username,
+            profilePicture: `${baseURL}/profile_pics/${userData.profilePicture}`,
+          });
+        }
       } catch (error) {
         console.error("Token validation error:", error);
-        throw error;
+        setIsAuthenticated(false);
+        handleLogout();
       }
     },
     [validateTokenMutation]
   );
 
-  const handleLogout = () => {
-    AsyncStorage.removeItem("token");
-    setIsAuthenticated(false);
-    setUser(null);
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      setIsAuthenticated(false);
+      setUser(null);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   const authContextValue = useMemo(
@@ -106,6 +148,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       handleLogout,
       isAuthenticated,
       user,
+      setUser,
+      loading, // Provide loading state
     }),
     [
       handleSignup,
@@ -114,6 +158,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       handleLogout,
       isAuthenticated,
       user,
+      setUser,
+      loading, // Include loading state
     ]
   );
 

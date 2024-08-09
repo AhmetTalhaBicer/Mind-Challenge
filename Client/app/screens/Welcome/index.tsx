@@ -32,30 +32,32 @@ const Welcome = ({ navigation }: { navigation: NavigationProp<any> }) => {
         </View>
 
         <View style={styles.welcomeContainer}>
-          <Text style={styles.title}>Mind Challenge'a</Text>
-          <Text style={styles.subtitle}>Hoş Geldiniz</Text>
+          <Text style={styles.title}>Welcome to </Text>
+          <Text style={styles.subtitle}>Mind Challenge</Text>
 
           <View style={styles.textContainer}>
             <Text style={styles.description}>
-              Bilginizi test edin ve eğlenin
+              Test your knowledge and have fun
             </Text>
             <Text style={styles.description}>
-              Soruları cevaplayın, skorunuzu artırın
+              Answer questions, increase your score
             </Text>
-            <Text style={styles.description}>ve diğer oyuncularla yarışın</Text>
+            <Text style={styles.description}>
+              and compete with other players
+            </Text>
           </View>
         </View>
       </View>
       <WelcomeButton
-        title="Hemen Profil Oluştur"
-        onPress={() => navigation.navigate("Kayıt Ekranı")}
+        title="Create Profile Now"
+        onPress={() => navigation.navigate("Signup Screen")}
         style={styles.button}
       />
 
       <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>Zaten bir hesabınız var mı?</Text>
-        <Pressable onPress={() => navigation.navigate("Giriş Ekranı")}>
-          <Text style={styles.loginButton}>Giriş Yap</Text>
+        <Text style={styles.loginText}>Already have an account?</Text>
+        <Pressable onPress={() => navigation.navigate("Login Screen")}>
+          <Text style={styles.loginButton}>Log In</Text>
         </Pressable>
       </View>
     </LinearGradient>
@@ -127,17 +129,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     fontWeight: "800",
-    marginVertical: 0,
     color: COLORS.white,
     fontFamily: "Roboto-Mono",
     letterSpacing: 1.3,
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 46,
     fontWeight: "bold",
     color: COLORS.white,
     fontFamily: "Roboto",
-    letterSpacing: 1.3,
+    letterSpacing: 0.8,
   },
   textContainer: {
     marginVertical: 8,
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   loginText: {
-    marginBottom: 16,
+    marginBottom: 20,
     color: COLORS.white,
     fontSize: 16,
     fontFamily: "Roboto",

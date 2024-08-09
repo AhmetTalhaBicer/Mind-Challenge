@@ -7,6 +7,7 @@ namespace Server.Auth.DTO
         public int UserId { get; set; }
         public required string Username { get; set; }
 
+        public required string PhoneNumber { get; set; }
         public required string Password { get; set; }
 
         [Required]
@@ -18,6 +19,7 @@ namespace Server.Auth.DTO
     {
         [Required]
         public required string Username { get; set; }
+        public required string PhoneNumber { get; set; }
         [Required]
         public required string Password { get; set; }
     }
@@ -28,6 +30,8 @@ namespace Server.Auth.DTO
     {
         [Required]
         public required string Username { get; set; }
+        public required string PhoneNumber { get; set; }
+
         [Required]
         public required string Password { get; set; }
 
@@ -53,6 +57,8 @@ namespace Server.Auth.DTO
         public int UserId { get; set; }
         public required string Username { get; set; }
 
+        public required string PhoneNumber { get; set; }
+
         public required string ProfilePicture { get; set; }
 
         public string? Biography { get; set; }
@@ -66,21 +72,25 @@ namespace Server.Auth.DTO
    public class UserLoginResponseDTO
 {
     public required string Token { get; set; }
-    public UserDTO User { get; set; }
+    public UserDTO? User { get; set; }
 
     public class UserDTO
     {
         public int UserId { get; set; }
         public required string Username { get; set; }
+
+        public required string PhoneNumber { get; set; }
         public required string ProfilePicture { get; set; }
     }
 }
 
+    public class UserProfilePictureUpdateDTO
+    {
+        public required string ProfilePictureFileName { get; set; }
+    }
 
     public class UserChangePasswordDTO
     {
-        [Required]
-        public required string Username { get; set; }
         [Required]
         public required string CurrentPassword { get; set; }
         [Required]

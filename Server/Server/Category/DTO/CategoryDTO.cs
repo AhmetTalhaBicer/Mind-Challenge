@@ -15,6 +15,7 @@
     {
         public required int CategoryId { get; set; }
         public required string Name { get; set; }
+        public int? NewCategoryId { get; set; }
     }
 
     public class DeleteCategoryDTO

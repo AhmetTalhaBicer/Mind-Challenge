@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Server.Auth.DTO;
 using Server.Auth.Services;
+using Server.Auth.User.Repositories;
 using System.Security.Claims;
 
 
@@ -13,10 +13,11 @@ namespace Server.Auth.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthServices _authServices;
-
-        public AuthController(AuthServices authServices)
+        private readonly IUserRepository _userRepository;
+        public AuthController(AuthServices authServices, IUserRepository userRepository)
         {
             _authServices = authServices;
+            _userRepository = userRepository;
         }
 
 
@@ -106,23 +107,44 @@ namespace Server.Auth.Controllers
                 });
             }
         }
-
-
-
-        // Token Doğrulama
         [HttpPost("validate-token")]
-        public IActionResult ValidateToken([FromBody] UserTokenDTO userTokenDTO)
+        public async Task<IActionResult> ValidateToken([FromBody] UserTokenDTO userTokenDTO)
         {
             try
             {
                 var principal = _authServices.ValidateToken(userTokenDTO);
+                var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                // Ensure userId is not null and parse it to int
+                if (userId == null || !int.TryParse(userId, out int parsedUserId))
+                {
+                    return NotFound(new
+                    {
+                        success = false,
+                        message = "User ID is invalid."
+                    });
+                }
+
+                // Fetch user details by ID
+                var user = await _userRepository.FindByIdAsync(parsedUserId);
+                if (user == null)
+                {
+                    return NotFound(new
+                    {
+                        success = false,
+                        message = "User not found"
+                    });
+                }
+
                 return Ok(new
                 {
                     success = true,
                     message = "Token is valid",
                     user = new
                     {
-                        id = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                        id = user.UserId, // Use UserId here
+                        username = user.Username,
+                        profilePicture = user.ProfilePicture
                     }
                 });
             }

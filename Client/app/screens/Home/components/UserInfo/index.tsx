@@ -14,8 +14,8 @@ const UserInfo: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.greeting}>Merhaba, {user.username}</Text>
-        <Text style={styles.subtitle}>Mind Challenge'a Hoşgeldiniz!</Text>
+        <Text style={styles.greeting}>Hi, {user.username}</Text>
+        <Text style={styles.subtitle}>Welcome to Mind Challenge!</Text>
       </View>
       <Avatar.Image
         source={{ uri: user.profilePicture }}
@@ -32,22 +32,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
+    marginVertical: 25,
   },
   textContainer: {
     flexDirection: "column",
   },
-  profilePicture: {},
+  profilePicture: {
+    backgroundColor: "#f5f5f5",
+  },
   greeting: {
     fontSize: 20,
     color: "#f5f5f5",
     fontWeight: "900",
     fontFamily: "Roboto-Serif",
+    letterSpacing: 1.5,
   },
   subtitle: {
     marginVertical: 5,
     fontSize: 14,
     fontFamily: "Roboto-Mono",
     color: "#CCCCCC",
+    letterSpacing: 0.5,
   },
 });
 

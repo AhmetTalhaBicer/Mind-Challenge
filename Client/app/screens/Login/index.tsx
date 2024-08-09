@@ -19,6 +19,7 @@ import Loading from "@/app/components/Loading";
 
 interface LoginFormInputs {
   username: string;
+  phoneNumber: string;
   password: string;
 }
 
@@ -39,6 +40,7 @@ const LoginForm = () => {
   } = useForm<LoginFormInputs>({
     defaultValues: {
       username: "",
+      phoneNumber: "",
       password: "",
     },
   });
@@ -56,8 +58,8 @@ const LoginForm = () => {
       console.error("Login error:", error);
       Toast.show({
         type: "error",
-        text1: "Hata",
-        text2: "Giriş başarısız!",
+        text1: "Error",
+        text2: "Login failed!",
       });
     } finally {
       setLoading(false);
@@ -78,7 +80,7 @@ const LoginForm = () => {
           </View>
         ) : (
           <>
-            <Text style={styles.header}>Giriş Yap</Text>
+            <Text style={styles.header}>Login</Text>
             <View style={styles.animationContainer}>
               <LottieView
                 source={loginAnimation}
@@ -88,13 +90,36 @@ const LoginForm = () => {
               />
             </View>
             <View style={styles.inputContainer}>
-              <Icon name="user" size={26} color={COLORS.black} />
+              <Icon name="phone" size={26} color={COLORS.primary} />
               <Controller
                 control={control}
-                rules={{ required: "Kullanıcı adı gerekli" }}
+                rules={{ required: "Phone number is required" }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    placeholder="Kullanıcı Adı"
+                    placeholder="Phone number"
+                    style={styles.textInput}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    keyboardType="phone-pad"
+                  />
+                )}
+                name="phoneNumber"
+              />
+              {errors.phoneNumber && (
+                <Text style={styles.errorText}>
+                  {errors.phoneNumber.message}
+                </Text>
+              )}
+            </View>
+            <View style={styles.inputContainer}>
+              <Icon name="user" size={26} color={COLORS.primary} />
+              <Controller
+                control={control}
+                rules={{ required: "Username is required" }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    placeholder="Username"
                     style={styles.textInput}
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -108,19 +133,19 @@ const LoginForm = () => {
               )}
             </View>
             <View style={styles.inputContainer}>
-              <Icon name="lock" size={26} color={COLORS.black} />
+              <Icon name="lock" size={26} color={COLORS.primary} />
               <Controller
                 control={control}
                 rules={{
-                  required: "Şifre gerekli",
+                  required: "Password is required",
                   minLength: {
                     value: 3,
-                    message: "Şifre en az 3 karakter olmalıdır",
+                    message: "Password must be at least 3 characters",
                   },
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    placeholder="Şifre"
+                    placeholder="Password"
                     secureTextEntry={!passwordVisible}
                     style={styles.textInput}
                     onBlur={onBlur}
@@ -145,21 +170,21 @@ const LoginForm = () => {
 
             <View style={styles.bottomContainer}>
               {loading ? (
-                <Loading message="Giriş yapılıyor..." />
+                <Loading message="Logging in..." />
               ) : (
                 <Pressable
                   style={styles.button}
                   onPress={handleSubmit(onSubmit)}
                 >
-                  <Text style={styles.buttonText}>Giriş Yap</Text>
+                  <Text style={styles.buttonText}>Login</Text>
                 </Pressable>
               )}
               <View style={styles.footer}>
-                <Text style={styles.footerText}>Hesabınız yok mu?</Text>
+                <Text style={styles.footerText}>Don't have an account?</Text>
                 <Pressable
-                  onPress={() => navigation.navigate("Kayıt Ekranı" as never)}
+                  onPress={() => navigation.navigate("Signup Screen" as never)}
                 >
-                  <Text style={styles.linkText}>Kayıt Ol</Text>
+                  <Text style={styles.linkText}>Sign up</Text>
                 </Pressable>
               </View>
             </View>
@@ -185,7 +210,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "Roboto-Mono",
     marginVertical: 20,
-    color: COLORS.black,
+    color: COLORS.primary,
     textAlign: "center",
   },
   animationContainer: {
@@ -212,11 +237,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: 60,
-    borderColor: COLORS.black,
+    borderColor: COLORS.primary,
     borderWidth: 1,
     borderRadius: 8,
     paddingLeft: 20,
-    marginBottom: 0,
+    marginBottom: 15,
   },
   textInput: {
     flex: 1,

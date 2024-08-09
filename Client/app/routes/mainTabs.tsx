@@ -2,15 +2,15 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 import Home from "../screens/Home";
-import Scoreboard from "../screens/Scoreboard";
 import Profile from "../screens/Profile";
+import LeaderboardScreen from "../screens/Leaderboard";
 
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Ana Sayfa"
+      initialRouteName="Home Screen"
       screenOptions={{
         tabBarActiveTintColor: "#3CADC8",
         tabBarInactiveTintColor: "#B0B0B0",
@@ -28,7 +28,7 @@ function MainTabs() {
       }}
     >
       <Tab.Screen
-        name="Ana Sayfa"
+        name="Home Screen"
         component={Home}
         options={{
           headerShown: false,
@@ -42,8 +42,8 @@ function MainTabs() {
         }}
       />
       <Tab.Screen
-        name="Skor Tablosu"
-        component={Scoreboard}
+        name="Leaderboard Screen"
+        component={LeaderboardScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size, focused }) => (
@@ -56,7 +56,7 @@ function MainTabs() {
         }}
       />
       <Tab.Screen
-        name="Profil"
+        name="Profile"
         component={Profile}
         options={{
           headerShown: false,

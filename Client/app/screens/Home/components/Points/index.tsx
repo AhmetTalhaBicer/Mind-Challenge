@@ -3,13 +3,18 @@ import { View, StyleSheet, Dimensions, Platform } from "react-native";
 import { Card, Text } from "react-native-paper";
 import LottieView from "lottie-react-native";
 import { useAuth } from "@/app/context/AuthContext";
-import { getUserStatisticsByUserId } from "@/app/services/api/user-statistics/endpoints";
+import {
+  getUserStatisticsByUserId,
+  getUserStatisticsTotalPoints,
+} from "@/app/services/api/user-statistics/endpoints";
+import { UserTotalPointsDTO } from "@/app/services/api/user-statistics/types";
 
 const { width } = Dimensions.get("window");
 
 const Points = () => {
   const { user } = useAuth();
-  const [points, setPoints] = useState<number | null>(null);
+  const [points, setPoints] = useState<number>(0);
+  const [rank, setRank] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchUserStatistics = async () => {
@@ -24,18 +29,24 @@ const Points = () => {
       }
     };
 
-    fetchUserStatistics();
-  }, [user]);
+    const fetchUserRank = async () => {
+      if (user) {
+        try {
+          const response = await getUserStatisticsTotalPoints();
+          const userTopStatistics = response.data.result;
+          const userRank = userTopStatistics.findIndex(
+            (u: UserTotalPointsDTO) => u.userId === user.userId
+          );
+          setRank(userRank);
+        } catch (error) {
+          console.error("Failed to fetch user rank", error);
+        }
+      }
+    };
 
-  if (points === null) {
-    return (
-      <Card style={styles.card}>
-        <View style={styles.centeredContainer}>
-          <Text style={styles.loadingText}>Loading...</Text>
-        </View>
-      </Card>
-    );
-  }
+    fetchUserStatistics();
+    fetchUserRank();
+  }, [user]);
 
   return (
     <Card style={styles.card}>
@@ -50,7 +61,7 @@ const Points = () => {
             />
           )}
           <View style={styles.textContainer}>
-            <Text style={styles.labelText}>Puan</Text>
+            <Text style={styles.labelText}>Points</Text>
             <Text style={styles.pointsText}>{points}</Text>
           </View>
         </View>
@@ -65,8 +76,10 @@ const Points = () => {
             />
           )}
           <View style={styles.textContainer}>
-            <Text style={styles.labelText}>Sıralama</Text>
-            <Text style={styles.pointsText}>15</Text>
+            <Text style={styles.labelText}>Rank</Text>
+            <Text style={styles.pointsText}>
+              {rank !== null ? rank : "N/A"}
+            </Text>
           </View>
         </View>
       </View>
@@ -93,10 +106,9 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     flexWrap: "wrap",
-    margin: 10,
   },
   infoContainer: {
     flexDirection: "row",
@@ -107,17 +119,15 @@ const styles = StyleSheet.create({
     width: 1,
     height: "70%",
     backgroundColor: "#CCCCCC",
-    marginHorizontal: 10,
   },
   animation: {
     width: width * 0.2,
-    height: width * 0.2,
-    marginHorizontal: 10,
+    height: width * 0.175,
+    marginBottom: 15,
   },
   animation2: {
-    width: width * 0.1,
-    height: width * 0.1,
-    marginTop: 15,
+    width: width * 0.2,
+    height: width * 0.12,
   },
   textContainer: {
     alignItems: "center",
@@ -127,10 +137,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#CCCCCC",
+    fontFamily: "Roboto-Mono",
   },
   pointsText: {
     fontSize: 18,
     fontWeight: "bold",
+    fontFamily: "Roboto",
     color: "#3CADC8",
   },
 });

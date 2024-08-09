@@ -4,53 +4,62 @@ import { Card, Text } from "react-native-paper";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 type RootStackParamList = {
-  Quiz: { category: string };
+  Quiz: { categoryId: number };
 };
 
-const getCategories = () => {
+export const getCategories = () => {
   return [
     {
-      name: "Genel Kültür",
+      categoryId: 1,
+      name: "General Knowledge",
       image: require("../../../../assets/category/Genel_Kültür2.jpg"),
       key: "general_knowledge",
     },
     {
-      name: "Bilgisayar Bilimi",
+      categoryId: 2,
+      name: "Computer Science",
       image: require("../../../../assets/category/Bilgisayar.jpg"),
       key: "computer_science",
     },
     {
-      name: "Müzik",
+      categoryId: 3,
+      name: "Music",
       image: require("../../../../assets/category/Müzik.jpg"),
       key: "music",
     },
     {
-      name: "Sinema",
+      categoryId: 4,
+      name: "Cinema",
       image: require("../../../../assets/category/Film.png"),
       key: "cinema",
     },
     {
-      name: "Video Oyunu",
+      categoryId: 5,
+      name: "Video Games",
       image: require("../../../../assets/category/Video_Oyunu.jpg"),
       key: "video_games",
     },
     {
+      categoryId: 6,
       name: "Anime",
       image: require("../../../../assets/category/Anime.jpg"),
       key: "anime",
     },
     {
-      name: "Tarih",
+      categoryId: 7,
+      name: "History",
       image: require("../../../../assets/category/Tarih.jpg"),
       key: "history",
     },
     {
-      name: "Spor",
+      categoryId: 8,
+      name: "Sports",
       image: require("../../../../assets/category/Spor.jpg"),
       key: "sport",
     },
     {
-      name: "Coğrafya",
+      categoryId: 9,
+      name: "Geography",
       image: require("../../../../assets/category/Coğrafya.jpg"),
       key: "geography",
     },
@@ -63,11 +72,11 @@ const Category = () => {
 
   return (
     <View style={styles.grid}>
-      {categories.map((category, index) => (
+      {categories.map((category) => (
         <TouchableOpacity
-          key={index}
+          key={category.categoryId}
           onPress={() =>
-            navigation.navigate("Quiz", { category: category.key })
+            navigation.navigate("Quiz", { categoryId: category.categoryId })
           }
         >
           <Card style={styles.card}>
@@ -96,7 +105,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: CARD_WIDTH,
-    marginVertical: 15,
+    marginVertical: 10,
     borderRadius: 10,
     overflow: "hidden",
     shadowColor: "#323232",

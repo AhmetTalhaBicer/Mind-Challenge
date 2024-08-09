@@ -24,6 +24,8 @@ namespace Server.UserStatistics.Repositories
                 {
                     Id = us.Id,
                     UserId = us.UserId,
+                    Username = us.User.Username,
+                    ProfilePicture= us.User.ProfilePicture,
                     CategoryId = us.CategoryId,
                     CategoryPoints = us.CategoryPoints,
                     TotalPoints = us.TotalPoints
@@ -39,6 +41,8 @@ namespace Server.UserStatistics.Repositories
                 {
                     Id = us.Id,
                     UserId = us.UserId,
+                    Username = us.User.Username,
+                    ProfilePicture = us.User.ProfilePicture,
                     CategoryId = us.CategoryId,
                     CategoryPoints = us.CategoryPoints,
                     TotalPoints = us.TotalPoints
@@ -46,19 +50,35 @@ namespace Server.UserStatistics.Repositories
                 .ToListAsync();
         }
 
-
-        public async Task<UserStatisticsDTO?> GetUserCategoryStatistics(int userId, int categoryId)
+        public async Task<List<UserStatisticsDTO>> GetStatisticsByCategoryId(int categoryId)
         {
             return await _context.UserStatistics
-                .Where(us => us.UserId == userId && us.CategoryId == categoryId)
+                .Where(us => us.CategoryId == categoryId)
                 .Select(us => new UserStatisticsDTO
                 {
+                    Id = us.Id,
                     UserId = us.UserId,
+                    Username = us.User.Username,
+                    ProfilePicture = us.User.ProfilePicture,
                     CategoryId = us.CategoryId,
                     CategoryPoints = us.CategoryPoints,
                     TotalPoints = us.TotalPoints
                 })
-                .FirstOrDefaultAsync();
+                .ToListAsync();
+        }
+
+        public async Task<List<UserTotalPointsDTO>> GetAllUserTotalPoints()
+        {
+            return await _context.UserStatistics
+                .GroupBy(us => us.UserId)
+                .Select(g => new UserTotalPointsDTO
+                {
+                    UserId = g.Key,
+                    Username = g.Max(us => us.User.Username) , 
+                    ProfilePicture = g.Max(us => us.User.ProfilePicture), 
+                    TotalPoints = g.Sum(us => us.CategoryPoints) 
+                })
+                .ToListAsync();
         }
 
 
@@ -75,6 +95,12 @@ namespace Server.UserStatistics.Repositories
             _context.UserStatistics.Add(userStatistics);
             await _context.SaveChangesAsync();
 
+            var user = await _context.Users.FindAsync(createUserStatisticsDTO.UserId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
+
             var totalPoints = await CalculateTotalPoints(createUserStatisticsDTO.UserId);
             await UpdateTotalPoints(createUserStatisticsDTO.UserId, totalPoints);
 
@@ -82,12 +108,12 @@ namespace Server.UserStatistics.Repositories
             {
                 Id = userStatistics.Id,
                 UserId = userStatistics.UserId,
+                Username = user.Username,
                 CategoryId = userStatistics.CategoryId,
                 CategoryPoints = userStatistics.CategoryPoints,
                 TotalPoints = totalPoints
             };
         }
-
         public async Task<UserStatisticsDTO> UpdateUserStatistics(UpdateUserStatisticsDTO updateUserStatisticsDTO)
         {
             var userStatistics = await _context.UserStatistics.FindAsync(updateUserStatisticsDTO.Id);
@@ -102,6 +128,12 @@ namespace Server.UserStatistics.Repositories
             _context.UserStatistics.Update(userStatistics);
             await _context.SaveChangesAsync();
 
+            var user = await _context.Users.FindAsync(userStatistics.UserId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
+
             var totalPoints = await CalculateTotalPoints(userStatistics.UserId);
             await UpdateTotalPoints(userStatistics.UserId, totalPoints);
 
@@ -109,6 +141,7 @@ namespace Server.UserStatistics.Repositories
             {
                 Id = userStatistics.Id,
                 UserId = userStatistics.UserId,
+                Username = user.Username,
                 CategoryId = userStatistics.CategoryId,
                 CategoryPoints = userStatistics.CategoryPoints,
                 TotalPoints = totalPoints
@@ -128,21 +161,6 @@ namespace Server.UserStatistics.Repositories
 
             _context.UserStatistics.RemoveRange(userStatistics);
             await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<UserStatisticsDTO>> GetStatisticsByCategoryId(int categoryId)
-        {
-            return await _context.UserStatistics
-                .Where(us => us.CategoryId == categoryId)
-                .Select(us => new UserStatisticsDTO
-                {
-                    Id = us.Id,
-                    UserId = us.UserId,
-                    CategoryId = us.CategoryId,
-                    CategoryPoints = us.CategoryPoints,
-                    TotalPoints = us.TotalPoints
-                })
-                .ToListAsync();
         }
 
         public async Task<int> CalculateTotalPoints(int userId)

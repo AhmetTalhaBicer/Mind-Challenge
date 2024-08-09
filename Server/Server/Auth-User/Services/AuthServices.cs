@@ -34,6 +34,7 @@ namespace Server.Auth.Services
             var user = new UserEntity
             {
                 Username = userSignUpDTO.Username,
+                PhoneNumber= userSignUpDTO.PhoneNumber,
                 Biography = userSignUpDTO.Biography,
                 ProfilePicture = profilePicture,
                 PasswordHash = _passwordHasher.HashPassword(userSignUpDTO.Password)
@@ -50,6 +51,7 @@ namespace Server.Auth.Services
             {
                 UserId = user.UserId,
                 Username = user.Username,
+                PhoneNumber= user.PhoneNumber,
                 ProfilePicture = $"/profile_pics/{user.ProfilePicture}",
                 Biography = user.Biography
             };
@@ -101,6 +103,12 @@ namespace Server.Auth.Services
                 throw new Exception("Invalid username or password.");
             }
 
+            // Check if the provided phone number matches the one in the database
+            if (user.PhoneNumber != userLoginDTO.PhoneNumber)
+            {
+                throw new Exception("Invalid phone number.");
+            }
+
             return new UserLoginResponseDTO
             {
                 Token = GenerateToken(user),
@@ -108,12 +116,11 @@ namespace Server.Auth.Services
                 {
                     UserId = user.UserId,
                     Username = user.Username,
+                    PhoneNumber = user.PhoneNumber,
                     ProfilePicture = user.ProfilePicture
                 }
             };
         }
-
-
 
         private string GenerateToken(UserEntity user)
         {
@@ -130,6 +137,8 @@ namespace Server.Auth.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim("ProfilePicture", user.ProfilePicture)
                 }),
                 Expires = DateTime.UtcNow.AddHours(24),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -150,7 +159,7 @@ namespace Server.Auth.Services
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ClockSkew = TimeSpan.Zero // Optional: reduce the default clock skew for token expiry
+                ClockSkew = TimeSpan.Zero
             };
 
             try
@@ -158,19 +167,11 @@ namespace Server.Auth.Services
                 var principal = tokenHandler.ValidateToken(userTokenDTO.Token, validationParameters, out SecurityToken validatedToken);
                 return principal;
             }
-            catch (SecurityTokenExpiredException ex)
-            {
-                throw new SecurityTokenException("Token has expired.", ex);
-            }
-            catch (SecurityTokenInvalidSignatureException ex)
-            {
-                throw new SecurityTokenException("Invalid token signature.", ex);
-            }
             catch (Exception ex)
             {
                 throw new SecurityTokenException("Invalid token.", ex);
             }
         }
-    }
+        }
 }
 

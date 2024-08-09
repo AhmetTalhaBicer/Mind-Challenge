@@ -12,7 +12,7 @@ public class UserStatisticsEntity
     public int UserId { get; set; }
 
     [ForeignKey("UserId")]
-    public UserEntity? User { get; set; }
+    public UserEntity User { get; set; }
 
     [Required]
     public int CategoryId { get; set; }

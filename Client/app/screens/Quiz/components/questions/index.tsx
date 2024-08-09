@@ -1,48 +1,80 @@
-import React, { useEffect } from "react";
+import he from "he";
 import {
-  getGeneralKnowledge_Easy,
-  getComputerScience_Easy,
-  getMusic_Easy,
-  getCinema_Easy,
-  getVideoGames_Easy,
-  getAnime_Easy,
-  getHistory_Easy,
-  getSport_Easy,
-  getGeography_Easy,
+  getGeneralKnowledge,
+  getComputerScience,
+  getMusic,
+  getCinema,
+  getVideoGames,
+  getAnime,
+  getHistory,
+  getSport,
+  getGeography,
 } from "../../../../services/api/questions/endpoints";
 
-export const fetchQuestions = async (category: string) => {
+const shuffleArray = (array: any[]) => array.sort(() => Math.random() - 0.5);
+
+export const fetchQuestions = async (categoryId: string) => {
   let response;
-  switch (category) {
-    case "general_knowledge":
-      response = await getGeneralKnowledge_Easy();
-      break;
-    case "computer_science":
-      response = await getComputerScience_Easy();
-      break;
-    case "music":
-      response = await getMusic_Easy();
-      break;
-    case "cinema":
-      response = await getCinema_Easy();
-      break;
-    case "video_games":
-      response = await getVideoGames_Easy();
-      break;
-    case "anime":
-      response = await getAnime_Easy();
-      break;
-    case "history":
-      response = await getHistory_Easy();
-      break;
-    case "sport":
-      response = await getSport_Easy();
-      break;
-    case "geography":
-      response = await getGeography_Easy();
-      break;
-    default:
-      return { data: { results: [] } };
+  try {
+    switch (categoryId) {
+      case "1":
+        response = await getGeneralKnowledge();
+        break;
+      case "2":
+        response = await getComputerScience();
+        break;
+      case "3":
+        response = await getMusic();
+        break;
+      case "4":
+        response = await getCinema();
+        break;
+      case "5":
+        response = await getVideoGames();
+        break;
+      case "6":
+        response = await getAnime();
+        break;
+      case "7":
+        response = await getHistory();
+        break;
+      case "8":
+        response = await getSport();
+        break;
+      case "9":
+        response = await getGeography();
+        break;
+      default:
+        return { data: { results: [] } };
+    }
+
+    const results = response.data.results
+      .map((question) => {
+        if (
+          question &&
+          question.question &&
+          question.correct_answer &&
+          Array.isArray(question.incorrect_answers)
+        ) {
+          return {
+            ...question,
+            question: he.decode(question.question),
+            correct_answer: he.decode(question.correct_answer),
+            incorrect_answers: question.incorrect_answers.map(he.decode),
+          };
+        } else {
+          console.error("Malformed question data:", question);
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    const shuffledResults = shuffleArray(results);
+    const selectedQuestions = shuffledResults.slice(0, 15);
+
+    return { data: { results: selectedQuestions } };
+  } catch (error) {
+    console.error("Error fetching questions:", error);
+    return { data: { results: [] } };
   }
-  return response;
 };

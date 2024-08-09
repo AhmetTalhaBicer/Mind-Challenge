@@ -27,6 +27,7 @@ const PROFILE_PIC_SIZE = 170;
 interface SignupFormInputs {
   username: string;
   password: string;
+  phoneNumber: string;
   ProfilePicture?: string;
   biography?: string;
 }
@@ -56,18 +57,18 @@ const SignupForm = () => {
 
       const formData = { ...data, ProfilePicture: profilePictureUrl };
       await handleSignup(formData);
-      navigation.navigate("Giriş Ekranı" as never);
+      navigation.navigate("Login Screen" as never);
       Toast.show({
         type: "success",
-        text1: "Başarılı",
-        text2: "Kayıt başarılı!",
+        text1: "Success",
+        text2: "Signup successful!",
       });
     } catch (error) {
       console.error("Signup error:", error);
       Toast.show({
         type: "error",
-        text1: "Hata",
-        text2: "Kayıt başarısız!",
+        text1: "Error",
+        text2: "Signup failed!",
       });
     } finally {
       setLoading(false);
@@ -103,8 +104,8 @@ const SignupForm = () => {
       if (status !== "granted") {
         Toast.show({
           type: "error",
-          text1: "İzin Gerekli",
-          text2: "Uygulamanın fotoğraflarınıza erişim izni gerekiyor!",
+          text1: "Permission Required",
+          text2: "The app needs permission to access your photos!",
         });
         return;
       }
@@ -138,7 +139,7 @@ const SignupForm = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.header}>Profil Oluştur</Text>
+        <Text style={styles.header}>Create Profile</Text>
         <Pressable
           onPress={selectProfilePic}
           style={styles.profilePicContainer}
@@ -150,15 +151,35 @@ const SignupForm = () => {
             style={styles.profilePic}
           />
         </Pressable>
-
         <View style={styles.inputContainer}>
-          <Icon name="user" size={26} color={COLORS.black} />
+          <Icon name="phone" size={26} color={COLORS.primary} />
           <Controller
             control={control}
-            rules={{ required: "Kullanıcı adı gerekli" }}
+            rules={{ required: "Phone number is required" }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                placeholder="Kullanıcı Adı"
+                placeholder="Phone Number"
+                style={styles.textInput}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                keyboardType="phone-pad"
+              />
+            )}
+            name="phoneNumber"
+          />
+          {errors.phoneNumber && (
+            <Text style={styles.errorText}>{errors.phoneNumber.message}</Text>
+          )}
+        </View>
+        <View style={styles.inputContainer}>
+          <Icon name="user" size={26} color={COLORS.primary} />
+          <Controller
+            control={control}
+            rules={{ required: "Username is required" }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                placeholder="Username"
                 style={styles.textInput}
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -172,19 +193,19 @@ const SignupForm = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Icon name="lock" size={26} color={COLORS.black} />
+          <Icon name="lock" size={26} color={COLORS.primary} />
           <Controller
             control={control}
             rules={{
-              required: "Şifre gerekli",
+              required: "Password is required",
               minLength: {
                 value: 3,
-                message: "Şifre en az 3 karakter olmalıdır",
+                message: "Password must be at least 3 characters",
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                placeholder="Şifre"
+                placeholder="Password"
                 secureTextEntry={!passwordVisible}
                 style={styles.textInput}
                 onBlur={onBlur}
@@ -207,12 +228,12 @@ const SignupForm = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Icon name="pencil" size={26} color={COLORS.black} />
+          <Icon name="pencil" size={26} color={COLORS.primary} />
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                placeholder="Hakkında... (isteğe bağlı)"
+                placeholder="About... (optional)"
                 style={styles.textInput}
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -224,18 +245,18 @@ const SignupForm = () => {
         </View>
         <View style={styles.bottomContainer}>
           {loading ? (
-            <Loading message="Profil oluşturuluyor..." />
+            <Loading message="Creating profile..." />
           ) : (
             <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.buttonText}>Profil Oluştur</Text>
+              <Text style={styles.buttonText}>Create Profile</Text>
             </Pressable>
           )}
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Zaten bir hesabınız var mı?</Text>
+            <Text style={styles.footerText}>Already have an account?</Text>
             <Pressable
-              onPress={() => navigation.navigate("Giriş Ekranı" as never)}
+              onPress={() => navigation.navigate("Login Screen" as never)}
             >
-              <Text style={styles.linkText}>Giriş Yap</Text>
+              <Text style={styles.linkText}>Log In</Text>
             </Pressable>
           </View>
         </View>
@@ -251,21 +272,21 @@ const SignupForm = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              Bu uygulama profil resminizi seçmek için galeriye erişim sağlamak
-              istiyor. İzin veriyor musunuz?
+              This app wants to access your gallery to select a profile picture.
+              Do you allow it?
             </Text>
             <View style={styles.modalButtons}>
               <Pressable
                 style={[styles.modalButton, styles.buttonCancel]}
                 onPress={() => handleGalleryPermission(false)}
               >
-                <Text style={styles.textStyle}>Hayır</Text>
+                <Text style={styles.textStyle}>No</Text>
               </Pressable>
               <Pressable
                 style={[styles.modalButton, styles.buttonAccept]}
                 onPress={() => handleGalleryPermission(true)}
               >
-                <Text style={styles.textStyle}>Evet</Text>
+                <Text style={styles.textStyle}>Yes</Text>
               </Pressable>
             </View>
           </View>
@@ -288,13 +309,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: "bold",
     fontFamily: "Roboto-Mono",
-    marginVertical: 36,
+    marginVertical: 20,
     color: COLORS.black,
     textAlign: "center",
   },
   profilePicContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   profilePic: {
     width: PROFILE_PIC_SIZE,
@@ -306,9 +327,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: 60,
-    borderColor: COLORS.black,
+    borderColor: COLORS.primary,
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     marginBottom: 10,
     paddingLeft: 20,
   },

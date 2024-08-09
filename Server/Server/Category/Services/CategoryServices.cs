@@ -73,6 +73,21 @@ namespace Server.Category.Services
                 return null;
             }
 
+            // Check if there's a request to update the CategoryId
+            if (updateCategoryDTO.NewCategoryId.HasValue && updateCategoryDTO.NewCategoryId.Value != updateCategoryDTO.CategoryId)
+            {
+                // Ensure the new CategoryId doesn't already exist
+                var existingCategory = await _categoryRepository.GetByIdAsync(updateCategoryDTO.NewCategoryId.Value);
+                if (existingCategory != null)
+                {
+                    // Return or throw an error indicating the ID already exists
+                    return null; // or throw new Exception("Category ID already exists.");
+                }
+
+                // Update the CategoryId
+                category.CategoryId = updateCategoryDTO.NewCategoryId.Value;
+            }
+
             category.Name = updateCategoryDTO.Name;
 
             var result = await _categoryRepository.UpdateAsync(category);
@@ -88,6 +103,7 @@ namespace Server.Category.Services
                 Name = category.Name
             };
         }
+
         // Kategori sil
         public async Task DeleteCategory(DeleteCategoryDTO deleteCategoryDTO)
         {

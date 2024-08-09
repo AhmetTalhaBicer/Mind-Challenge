@@ -40,7 +40,33 @@ namespace Server.UserStatistics.Controllers
                     error = ex.Message
                 });
             }
+        } 
+
+        // Belirli bir kategorinin istatistiklerini döndürür
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetStatisticsByCategoryId(int categoryId)
+        {
+            try
+            {
+                var statisticsByCategory = await _userStatisticsServices.GetStatisticsByCategoryId(categoryId);
+                return Ok(new
+                {
+                    success = true,
+                    message = "Statistics by category retrieved successfully.",
+                    result = statisticsByCategory
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Failed to retrieve statistics by category.",
+                    error = ex.Message
+                });
+            }
         }
+
 
         // Belirli bir kullanıcının istatistiklerini döndürür
         [HttpGet("{userId}")]
@@ -75,19 +101,18 @@ namespace Server.UserStatistics.Controllers
             }
         }
 
-
-        // Belirli bir kategorinin istatistiklerini döndürür
-        [HttpGet("category/{categoryId}")]
-        public async Task<IActionResult> GetStatisticsByCategoryId(int categoryId)
+        // Tüm Kullanıcıların Toplam Puanlarını Döndürür
+        [HttpGet("total-points")]
+        public async Task<IActionResult> GetAllUserTotalPoints()
         {
             try
             {
-                var statisticsByCategory = await _userStatisticsServices.GetStatisticsByCategoryId(categoryId);
+                var userTotalPoints = await _userStatisticsServices.GetAllUserTotalPoints();
                 return Ok(new
                 {
                     success = true,
-                    message = "Statistics by category retrieved successfully.",
-                    result = statisticsByCategory
+                    message = "User total points retrieved successfully.",
+                    result = userTotalPoints
                 });
             }
             catch (Exception ex)
@@ -95,45 +120,11 @@ namespace Server.UserStatistics.Controllers
                 return StatusCode(500, new
                 {
                     success = false,
-                    message = "Failed to retrieve statistics by category.",
+                    message = "Failed to retrieve user total points.",
                     error = ex.Message
                 });
             }
         }
-
-        // Belirli bir kullanıcının belirli bir kategorisinin istatistiklerini döndürür
-        [HttpGet("{userId}/category/{categoryId}")]
-        public async Task<IActionResult> GetUserCategoryStatistics(int userId, int categoryId)
-        {
-            try
-            {
-                var userCategoryStats = await _userStatisticsServices.GetUserCategoryStatistics(userId, categoryId);
-                return Ok(new
-                {
-                    success = true,
-                    message = "User category statistics retrieved successfully.",
-                    result = userCategoryStats
-                });
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new
-                {
-                    success = false,
-                    message = $"Statistics for user ID {userId} and category ID {categoryId} not found."
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    success = false,
-                    message = "Failed to retrieve user category statistics.",
-                    error = ex.Message
-                });
-            }
-        }
-
 
         // Yeni Kullanıcı İstatistiği Oluşturur
         [HttpPost]
@@ -142,12 +133,15 @@ namespace Server.UserStatistics.Controllers
             try
             {
                 var userStatistics = await _userStatisticsServices.CreateUserStatistics(createUserStatisticsDTO);
-                return CreatedAtAction(nameof(GetUserStatistics), new { id = userStatistics.Id }, new
-                {
-                    success = true,
-                    message = "User statistics created successfully.",
-                    result = userStatistics
-                });
+                return CreatedAtAction(
+                    nameof(GetUserStatistics),
+                    new { userId = userStatistics.UserId },
+                    new
+                    {
+                        success = true,
+                        message = "User statistics created successfully.",
+                        result = userStatistics
+                    });
             }
             catch (Exception ex)
             {

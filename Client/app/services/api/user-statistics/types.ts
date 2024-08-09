@@ -1,14 +1,23 @@
 export interface UserStatisticsDTO {
   id: string;
   userId: string;
-  categoryId: string;
+  username: string;
+  profilePicture: string;
+  categoryId: number;
   categoryPoints: number;
   totalPoints: number;
 }
 
+export interface UserTotalPointsDTO {
+  userId: string;
+  username: string;
+  profilePicture: string;
+  totalPoints: number;
+}
 export interface createUserStatisticsDTO {
   userId: string;
-  categoryId: string;
+  username: string;
+  categoryId: number;
   categoryPoints: number;
   totalPoints: number;
 }
@@ -16,17 +25,12 @@ export interface createUserStatisticsDTO {
 export interface updateUserStatisticsDTO {
   id: string;
   userId: string;
-  categoryId: string;
+  username: string;
+  categoryId: number;
   categoryPoints: number;
   totalPoints: number;
 }
 
 export interface deleteUserStatisticsDTO {
   id: string;
-}
-
-export interface UserCategoryStatsDTO {
-  userId: string;
-  categoryId: string;
-  categoryPoints: number;
 }

@@ -1,21 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.DB;
 using Server.Auth.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Server.Auth.Services
 {
     public class UserServices
     {
         private readonly ApplicationDbContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserServices(ApplicationDbContext context)
+
+        public UserServices(ApplicationDbContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
+
 
         // Tüm Kullanıcıları Döndürür
         public async Task<List<UserResponseDTO>> GetAllUsers()
@@ -25,6 +25,7 @@ namespace Server.Auth.Services
                 {
                     UserId = user.UserId,
                     Username = user.Username,
+                    PhoneNumber = user.PhoneNumber,
                     ProfilePicture = user.ProfilePicture,
                     Biography = user.Biography
                 })
@@ -54,6 +55,7 @@ namespace Server.Auth.Services
             {
                 UserId = user.UserId,
                 Username = user.Username,
+                PhoneNumber = user.PhoneNumber,
                 ProfilePicture = user.ProfilePicture,
                 Biography = user.Biography
             };
@@ -76,8 +78,56 @@ namespace Server.Auth.Services
                 throw new Exception("User not found.");
             }
 
-            // Burada şifre değiştirme mantığını implement etmeniz gerekecek, DbContext'e göre özelleştirebilirsiniz.
-            throw new NotImplementedException("Change password functionality is not implemented.");
+            // Mevcut şifreyi doğrulama
+            if (!_passwordHasher.VerifyPassword(user.PasswordHash, userChangePasswordDTO.CurrentPassword))
+            {
+                throw new Exception("Current password is incorrect.");
+            }
+
+            // Yeni şifreyi doğrulama
+            if (userChangePasswordDTO.NewPassword.Length < 3) // Örnek: Minimum uzunluk kontrolü
+            {
+                throw new Exception("New password must be at least 3 characters long.");
+            }
+
+            // Yeni şifreyi hash'leme ve veritabanına kaydetme
+            user.PasswordHash = _passwordHasher.HashPassword(userChangePasswordDTO.NewPassword);
+            await _context.SaveChangesAsync();
+        }
+    
+    // Kullanıcının profil fotoğrafını günceller
+    public async Task<UserResponseDTO> UpdateUserProfilePicture(int userId, UserProfilePictureUpdateDTO userProfilePictureUpdateDTO)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            // Eski profil fotoğrafını sil (isteğe bağlı)
+            if (!string.IsNullOrEmpty(user.ProfilePicture) && user.ProfilePicture != "default.jpeg")
+            {
+                var oldProfilePicturePath = Path.Combine("wwwroot", "profile_pics", user.ProfilePicture);
+                if (File.Exists(oldProfilePicturePath))
+                {
+                    File.Delete(oldProfilePicturePath);
+                }
+            }
+
+            user.ProfilePicture = userProfilePictureUpdateDTO.ProfilePictureFileName;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return new UserResponseDTO
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                PhoneNumber = user.PhoneNumber,
+                ProfilePicture = user.ProfilePicture,
+                Biography = user.Biography
+            };
         }
     }
 }

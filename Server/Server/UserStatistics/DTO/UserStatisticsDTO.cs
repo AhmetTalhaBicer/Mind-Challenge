@@ -4,14 +4,32 @@
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public required string Username { get; set; }
+        public string ProfilePicture { get; set; }
         public int CategoryId { get; set; }
         public int CategoryPoints { get; set; }
         public int TotalPoints { get; set; }
     }
-
+    public class UserCategoryStatsDTO
+    {
+        public int UserId { get; set; }
+        public required string Username { get; set; }
+        public string ProfilePicture { get; set; }
+        public int CategoryId { get; set; }
+        public int CategoryPoints { get; set; }
+    }
+    public class UserTotalPointsDTO
+    {
+        public int UserId { get; set; }
+        public string Username { get; set; }
+        public string ProfilePicture { get; set; }
+        public int TotalPoints { get; set; }
+    }
     public class CreateUserStatisticsDTO
     {
         public required int UserId { get; set; }
+        public required string Username { get; set; }
+
         public required int CategoryId { get; set; }
         public int CategoryPoints { get; set; }
         public int TotalPoints { get; set; }
@@ -21,6 +39,8 @@
     {
         public required int Id { get; set; }
         public required int UserId { get; set; }
+        public required string Username { get; set; }
+
         public required int CategoryId { get; set; }
         public int CategoryPoints { get; set; }
         public int TotalPoints { get; set; }
@@ -31,11 +51,6 @@
         public required int Id { get; set; }
     }
 
-    public class UserCategoryStatsDTO
-    {
-        public int UserId { get; set; }
-        public int CategoryId { get; set; }
-        public int CategoryPoints { get; set; }
-    }
+   
 
 }

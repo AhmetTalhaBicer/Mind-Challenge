@@ -4,8 +4,15 @@ import {
   Auth_ProfilePic,
   Auth_Signup,
   Auth_ValidToken,
+  User_Change_Password,
+  User_Change_Profile,
 } from "./constants";
-import { LoginDTO, SignupDTO, ValidateTokenDTO } from "./types";
+import {
+  ChangePasswordDTO,
+  LoginDTO,
+  SignupDTO,
+  ValidateTokenDTO,
+} from "./types";
 
 export const postSignup = async (data: SignupDTO) => {
   try {
@@ -45,4 +52,39 @@ export const postLogin = async (data: LoginDTO) => {
 
 export const postValidateToken = async (data: ValidateTokenDTO) => {
   return http.post(Auth_ValidToken, data);
+};
+
+export const postChangeProfilePicture = async (
+  userId: number,
+  profilePictureUri: string
+) => {
+  const response = await fetch(profilePictureUri);
+  const blob = await response.blob();
+
+  const formData = new FormData();
+  formData.append("profilePicture", blob, "ProfilePicture.jpg");
+
+  try {
+    const response = await http.post(User_Change_Profile(userId), formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      "Profile pic upload error:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const postChangePassword = async (
+  userId: number,
+  currentPassword: string,
+  newPassword: string
+) => {
+  const dto: ChangePasswordDTO = { currentPassword, newPassword };
+  return http.post(User_Change_Password(userId), dto);
 };

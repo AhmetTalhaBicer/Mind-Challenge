@@ -6,8 +6,8 @@ import {
   Animated,
   Easing,
 } from "react-native";
-import { RouteProp, useRoute } from "@react-navigation/native";
-import { Text, IconButton } from "react-native-paper";
+import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
+import { Text } from "react-native-paper";
 import Loading from "@/app/components/Loading";
 import { QuestionDTO } from "@/app/services/api/questions/types";
 import { fetchQuestions } from "./components/questions";
@@ -15,12 +15,23 @@ import {
   CustomProgressBar,
   CustomProgressCircle,
 } from "./components/progressComponents";
+import AnswerSection from "./components/answerSection";
+import { useAuth } from "@/app/context/AuthContext";
+import { createUserStatistics } from "@/app/services/api/user-statistics/endpoints";
+import { createUserStatisticsDTO } from "@/app/services/api/user-statistics/types";
 
-type QuizScreenRouteProp = RouteProp<{ Quiz: { category: string } }, "Quiz">;
+type QuizScreenRouteProp = RouteProp<{ Quiz: { categoryId: number } }, "Quiz">;
+type FetchQuestionsResponse = {
+  data: {
+    results: QuestionDTO[];
+  };
+};
 
 const QuizScreen = () => {
   const route = useRoute<QuizScreenRouteProp>();
-  const { category } = route.params;
+  const navigation = useNavigation();
+  const { user } = useAuth();
+  const { categoryId } = route.params;
   const [questions, setQuestions] = useState<QuestionDTO[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -28,6 +39,7 @@ const QuizScreen = () => {
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
   const progress = useRef(new Animated.Value(0)).current;
   const [progressValue, setProgressValue] = useState(0);
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -35,12 +47,30 @@ const QuizScreen = () => {
 
   useEffect(() => {
     const loadQuestions = async () => {
-      const response = await fetchQuestions(category);
-      setQuestions(response.data.results);
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Request timed out")), 5000)
+      );
+
+      try {
+        const response = (await Promise.race([
+          fetchQuestions(categoryId.toString()),
+          timeoutPromise,
+        ])) as FetchQuestionsResponse;
+        setQuestions(response.data.results);
+      } catch (error) {
+        console.error("Error loading questions:", error);
+        retryLoadQuestions();
+      }
+    };
+
+    const retryLoadQuestions = () => {
+      setTimeout(() => {
+        loadQuestions();
+      }, 5000);
     };
 
     loadQuestions();
-  }, [category]);
+  }, [categoryId]);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -51,10 +81,7 @@ const QuizScreen = () => {
       ];
       setShuffledAnswers(shuffleArray(answers));
 
-      // Calculate the progress value based on the total number of questions
       const progressValue = (currentQuestionIndex + 1) / questions.length;
-
-      // Animate progress bar for quiz progress
       Animated.timing(progress, {
         toValue: progressValue,
         duration: 500,
@@ -62,7 +89,6 @@ const QuizScreen = () => {
         useNativeDriver: false,
       }).start();
 
-      // Reset timer for each question
       resetTimer();
     }
   }, [questions, currentQuestionIndex, progress]);
@@ -77,30 +103,30 @@ const QuizScreen = () => {
     };
   }, [progress]);
 
-  const shuffleArray = (array: string[]) => {
-    return array.sort(() => Math.random() - 0.5);
-  };
+  const shuffleArray = (array: string[]) =>
+    array.sort(() => Math.random() - 0.5);
 
   const handleAnswer = (answer: string) => {
     setSelectedAnswer(answer);
     setIsAnswerSelected(true);
     const isCorrect = answer === questions[currentQuestionIndex].correct_answer;
-    if (isCorrect) {
-      setScore(score + 1);
-    }
+    setIsCorrectAnswer(isCorrect);
+    if (isCorrect) setScore(score + 1);
     clearTimer();
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setIsQuizFinished(true);
+      clearTimer();
+      await saveScore();
     }
     setSelectedAnswer(null);
     setIsAnswerSelected(false);
+    setIsCorrectAnswer(null);
   };
-
   const resetTimer = () => {
     if (timer.current) clearInterval(timer.current);
     setTimerValue(30);
@@ -120,11 +146,42 @@ const QuizScreen = () => {
     if (timer.current) clearInterval(timer.current);
   };
 
+  const saveScore = async () => {
+    if (user) {
+      const userStatistics: createUserStatisticsDTO = {
+        userId: user.userId,
+        username: user.username,
+        categoryId: categoryId,
+        categoryPoints: score,
+        totalPoints: score,
+      };
+      console.log("user:", user);
+      try {
+        await createUserStatistics(userStatistics);
+        console.log("User statistics recorded successfully.");
+      } catch (error) {
+        console.error("Error creating user statistics:", error);
+      }
+    } else {
+      console.error("User not logged in.");
+    }
+  };
+
   if (isQuizFinished) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Quiz Finished!</Text>
-        <Text style={styles.text}>Your Score: {score}</Text>
+        <View style={styles.finishedCard}>
+          <Text style={styles.finishedText}>Quiz Finished!</Text>
+          <Text style={styles.scoreText}>Current Score: {score}</Text>
+          <TouchableOpacity
+            style={styles.restartButton}
+            onPress={() => {
+              navigation.navigate("Home Screen" as never);
+            }}
+          >
+            <Text style={styles.restartButtonText}>Go to Categories</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -140,62 +197,32 @@ const QuizScreen = () => {
       <CustomProgressBar
         progress={progress}
         width={380}
-        height={45}
-        color="#FF9F41"
+        height={12}
+        color="#FFA342"
         currentQuestionIndex={currentQuestionIndex}
         totalQuestions={questions.length}
       />
       <View style={styles.questionCard}>
         <CustomProgressCircle
           progressValue={timerValue / 30}
-          textColor="white"
+          textColor="#fff"
           style={styles.progressCircle}
         />
         <Text style={styles.questionText}>{currentQuestion.question}</Text>
       </View>
-      <View style={styles.answerContainer}>
-        {shuffledAnswers.map((answer, index) => {
-          const isSelected = selectedAnswer === answer;
-          const isCorrect = answer === currentQuestion.correct_answer;
-          return (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.answerButton,
-                isSelected &&
-                  (isCorrect ? styles.correctAnswer : styles.incorrectAnswer),
-              ]}
-              onPress={() => handleAnswer(answer)}
-              disabled={selectedAnswer !== null}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  isSelected &&
-                    (isCorrect
-                      ? styles.correctAnswerText
-                      : styles.incorrectAnswerText),
-                ]}
-              >
-                {answer}
-              </Text>
-              {isSelected && (
-                <IconButton
-                  icon={isCorrect ? "check-circle" : "close-circle"}
-                  iconColor={isCorrect ? "#3CADC8" : "red"}
-                  size={20}
-                />
-              )}
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+      <AnswerSection
+        answers={shuffledAnswers}
+        selectedAnswer={selectedAnswer}
+        isAnswerSelected={isAnswerSelected}
+        handleAnswer={handleAnswer}
+        correctAnswer={currentQuestion.correct_answer}
+      />
       {isAnswerSelected && (
         <TouchableOpacity
           style={[styles.nextButton, { width: "100%" }]}
           onPress={handleNextQuestion}
         >
-          <Text style={styles.nextButtonText}>Sonraki</Text>
+          <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -214,7 +241,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 32,
     marginVertical: 18,
-    marginTop: 32,
+    marginTop: 54,
     borderRadius: 12,
     backgroundColor: "#323232",
     position: "relative",
@@ -226,48 +253,35 @@ const styles = StyleSheet.create({
     top: -38,
     zIndex: 1,
   },
-  answerContainer: {
-    width: "100%",
-  },
-  answerButton: {
-    width: "100%",
-    padding: 16,
-    marginVertical: 10,
-    backgroundColor: "#1C1C1C",
-    borderRadius: 12,
+  finishedCard: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderWidth: 1,
-    borderColor: "#fff",
+    width: "100%",
+    borderRadius: 12,
+    backgroundColor: "#323232",
   },
-  correctAnswer: {
-    borderColor: "#3CADC8",
-  },
-  incorrectAnswer: {
-    borderColor: "red",
-  },
-  correctAnswerText: {
-    color: "#3CADC8",
-  },
-  incorrectAnswerText: {
-    color: "red",
-  },
-  text: {
-    fontSize: 18,
-    marginBottom: 16,
+  finishedText: {
+    fontSize: 24,
+    fontWeight: "bold",
     color: "#fff",
-  },
-  questionText: {
-    fontSize: 18,
     marginBottom: 16,
-    color: "#fff",
-    textAlign: "left",
-    letterSpacing: 1.5,
   },
-  buttonText: {
+  scoreText: {
+    fontSize: 20,
+    color: "#fff",
+    marginBottom: 24,
+  },
+  restartButton: {
+    backgroundColor: "#3EB8D4",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  restartButtonText: {
+    color: "#fff",
     fontSize: 16,
-    color: "#fff",
   },
   nextButton: {
     marginTop: 24,
@@ -280,6 +294,13 @@ const styles = StyleSheet.create({
   nextButtonText: {
     color: "#fff",
     fontSize: 16,
+  },
+  questionText: {
+    fontSize: 18,
+    marginBottom: 16,
+    color: "#fff",
+    textAlign: "left",
+    letterSpacing: 1.5,
   },
 });
 

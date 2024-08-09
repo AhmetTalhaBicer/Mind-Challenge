@@ -10,7 +10,7 @@ public class UserEntity
     [Required]
     [StringLength(256)]
     public required string Username { get; set; }
-
+    public required string PhoneNumber { get; set; }
     [Required]
     public required string PasswordHash { get; set; }
 

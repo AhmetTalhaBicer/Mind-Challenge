@@ -47,7 +47,7 @@ export const CustomProgressBar: React.FC<CustomProgressBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginBottom: 48,
+    marginBottom: 36,
   },
   outerBox: {
     flexDirection: "row",

@@ -11,10 +11,12 @@ namespace Server.Auth.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserServices _userServices;
+        private readonly AuthServices _authServices;
 
-        public UserController(UserServices userServices)
+        public UserController(UserServices userServices,AuthServices authServices)
         {
             _userServices = userServices;
+            _authServices = authServices;
         }
 
         // Tüm Kullanıcıları Listeleme
@@ -66,6 +68,53 @@ namespace Server.Auth.Controllers
                 });
             }
         }
+
+        // Kullanıcının profil fotoğrafını güncelleme
+        [HttpPost("{userId}/change-profile-picture")]
+        public async Task<IActionResult> UploadProfilePicture(int userId, IFormFile profilePicture)
+        {
+            if (profilePicture == null || profilePicture.Length == 0)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "No file uploaded."
+                });
+            }
+
+            try
+            {
+                // Profil fotoğrafını yükleyin ve yeni dosya adını alın
+                var fileName = await _authServices.UploadProfilePicture(profilePicture);
+
+                // DTO oluştur
+                var userProfilePictureUpdateDTO = new UserProfilePictureUpdateDTO
+                {
+                    ProfilePictureFileName = fileName
+                };
+
+                // Kullanıcıyı güncelleyin
+                var updatedUser = await _userServices.UpdateUserProfilePicture(userId, userProfilePictureUpdateDTO);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Profile picture updated successfully.",
+                    result = updatedUser
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Failed to update profile picture.",
+                    error = ex.Message
+                });
+            }
+        }
+
+
 
         // Tüm Kullanıcıları Silme
         [HttpDelete]

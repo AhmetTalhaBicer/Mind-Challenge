@@ -9,7 +9,7 @@ const Home = () => {
     <View style={styles.container}>
       <UserInfo />
       <Points />
-      <Text style={styles.heading}>Haydi Kategorilere Göz At</Text>
+      <Text style={styles.heading}>Let's Browse Categories</Text>
       <Category />
     </View>
   );
@@ -18,7 +18,6 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 30,
     backgroundColor: "#141414", // 1C1C1C = acık siyah
   },
   heading: {
