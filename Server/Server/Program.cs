@@ -98,7 +98,6 @@ builder.Services.AddScoped<IUserStatisticsRepository, UserStatisticsRepository>(
 builder.Services.AddScoped<UserStatisticsServices>();
 
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
