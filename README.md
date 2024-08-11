@@ -30,8 +30,22 @@ A mobile quiz application where users can participate in quizzes across various 
 
 ## 🖼️ Screenshots
 
-![Quiz Screen](screenshots/quiz_screen.png)
-![Leaderboard](screenshots/leaderboard.png)
+
+<br>
+
+<div class="grid grid-cols-2 gap-4">
+  <div>
+    <img src="./" alt="Screenshot 1" class="w-full h-auto">
+  </div>
+  <div>
+    <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 2" class="w-full h-auto">
+  </div>
+  <div class="col-span-2 flex justify-between">
+    <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 3" class="w-48 h-auto">
+    <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 4" class="w-48 h-auto">
+  </div>
+</div>
+
 
 ## 🤝 Contributing
 
