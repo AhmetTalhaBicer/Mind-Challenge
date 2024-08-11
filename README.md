@@ -71,10 +71,10 @@ A mobile quiz application where users can participate in quizzes across various 
   <table>
     <tr>
       <td align="center" style="padding: 16px;">
-        <video width="200" controls>
-          <source src="Client/app/assets/screenshots/Screen_recording" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+       <video width="200" controls>
+  <source src="Client/app/assets/videos/Screen_recording.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
         <br><b>Mind Challenge Video</b>
       </td>
   </table>
