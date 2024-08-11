@@ -197,7 +197,7 @@ const QuizScreen = () => {
       <CustomProgressBar
         progress={progress}
         width={380}
-        height={12}
+        height={70}
         color="#FFA342"
         currentQuestionIndex={currentQuestionIndex}
         totalQuestions={questions.length}
