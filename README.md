@@ -34,21 +34,21 @@ A mobile quiz application where users can participate in quizzes across various 
   <table>
     <tr>
       <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/1.png" alt="Home Screen" width="200px" style="border-radius: 8px;">
+        <img src="Client/app/assets/screenshots/1.png" alt="Welcome Screen" width="200px" style="border-radius: 8px;">
         <br><b>Welcome Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/2.png" alt="Category Selection" width="200px" style="border-radius: 8px;">
+        <img src="Client/app/assets/screenshots/2.png" alt="Signup Screen" width="200px" style="border-radius: 8px;">
         <br><b>Signup Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/3.png" alt="Quiz Screen" width="200px" style="border-radius: 8px;">
+        <img src="Client/app/assets/screenshots/3.png" alt="Login Screen" width="200px" style="border-radius: 8px;">
         <br><b>Login Screen</b>
       </td>
     </tr>
     <tr>
       <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/4.png" alt="Leaderboard" width="200px" style="border-radius: 8px;">
+        <img src="Client/app/assets/screenshots/4.png" alt="Home Screen" width="200px" style="border-radius: 8px;">
         <br><b>Home Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
@@ -56,11 +56,11 @@ A mobile quiz application where users can participate in quizzes across various 
         <br><b>Quiz Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/5.png" alt="Profile Management" width="200px" style="border-radius: 8px;">
+        <img src="Client/app/assets/screenshots/5.png" alt="Leaderboard Screen" width="200px" style="border-radius: 8px;">
         <br><b>Leaderboard Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/6.png" alt="Rewards & Badges" width="200px" style="border-radius: 8px;">
+        <img src="Client/app/assets/screenshots/6.png" alt="Profile Screen" width="200px" style="border-radius: 8px;">
         <br><b>Profile Screen</b>
       </td>
     </tr>
