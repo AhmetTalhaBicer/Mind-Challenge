@@ -67,16 +67,6 @@ A mobile quiz application where users can participate in quizzes across various 
       </td>
     </tr>
   </table>
-  <br>
-  <table>
-    <tr>
-      <td align="center" style="padding: 16px;">
-        <source src="Client/app/assets/videos/Screen_recording.webm" type="video/webm">
-          Your browser does not support the video tag.
-        </video>
-        <br><b>Mind Challenge Video</b>
-      </td>
-  </table>
 </div>
 
 ## 🤝 Contributing
