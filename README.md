@@ -35,29 +35,33 @@ A mobile quiz application where users can participate in quizzes across various 
     <tr>
       <td align="center" style="padding: 16px;">
         <img src="Client/app/assets/screenshots/1.png" alt="Home Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Home Screen</b>
+        <br><b>Welcome Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
         <img src="Client/app/assets/screenshots/2.png" alt="Category Selection" width="200px" style="border-radius: 8px;">
-        <br><b>Category Selection</b>
+        <br><b>Signup Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
         <img src="Client/app/assets/screenshots/3.png" alt="Quiz Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Quiz Screen</b>
+        <br><b>Login Screen</b>
       </td>
     </tr>
     <tr>
       <td align="center" style="padding: 16px;">
         <img src="Client/app/assets/screenshots/4.png" alt="Leaderboard" width="200px" style="border-radius: 8px;">
-        <br><b>Leaderboard</b>
+        <br><b>Home Screen</b>
+      </td>
+      <td align="center" style="padding: 16px;">
+        <img src="Client/app/assets/screenshots/7.png" alt="Quiz Screen" width="200px" style="border-radius: 8px;">
+        <br><b>Quiz Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
         <img src="Client/app/assets/screenshots/5.png" alt="Profile Management" width="200px" style="border-radius: 8px;">
-        <br><b>Profile Management</b>
+        <br><b>Leaderboard Screen</b>
       </td>
       <td align="center" style="padding: 16px;">
         <img src="Client/app/assets/screenshots/6.png" alt="Rewards & Badges" width="200px" style="border-radius: 8px;">
-        <br><b>Rewards & Badges</b>
+        <br><b>Profile Screen</b>
       </td>
     </tr>
   </table>
