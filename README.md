@@ -30,42 +30,55 @@ A mobile quiz application where users can participate in quizzes across various 
 
 ## 🖼️ Screenshots
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/1.png" alt="Welcome Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Welcome Screen</b>
-      </td>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/2.png" alt="Signup Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Signup Screen</b>
-      </td>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/3.png" alt="Login Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Login Screen</b>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/4.png" alt="Home Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Home Screen</b>
-      </td>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/7.png" alt="Quiz Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Quiz Screen</b>
-      </td>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/5.png" alt="Leaderboard Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Leaderboard Screen</b>
-      </td>
-      <td align="center" style="padding: 16px;">
-        <img src="Client/app/assets/screenshots/6.png" alt="Profile Screen" width="200px" style="border-radius: 8px;">
-        <br><b>Profile Screen</b>
-      </td>
-    </tr>
-  </table>
+<div class="grid-container">
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/1.png" alt="Welcome Screen">
+    <br><b>Welcome Screen</b>
+  </div>
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/2.png" alt="Signup Screen">
+    <br><b>Signup Screen</b>
+  </div>
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/3.png" alt="Login Screen">
+    <br><b>Login Screen</b>
+  </div>
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/4.png" alt="Home Screen">
+    <br><b>Home Screen</b>
+  </div>
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/7.png" alt="Quiz Screen">
+    <br><b>Quiz Screen</b>
+  </div>
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/5.png" alt="Leaderboard Screen">
+    <br><b>Leaderboard Screen</b>
+  </div>
+  <div class="grid-item">
+    <img src="Client/app/assets/screenshots/6.png" alt="Profile Screen">
+    <br><b>Profile Screen</b>
+  </div>
 </div>
+
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    justify-items: center;
+    padding: 16px;
+  }
+
+  .grid-item {
+    text-align: center;
+  }
+
+  .grid-item img {
+    width: 200px;
+    border-radius: 8px;
+  }
+</style>
 
 ## 🤝 Contributing
 
