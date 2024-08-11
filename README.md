@@ -39,10 +39,12 @@ A mobile quiz application where users can participate in quizzes across various 
   </div>
   <div>
     <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 2" class="w-full h-auto">
-  </div>
-  <div class="col-span-2 flex justify-between">
-    <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 3" class="w-48 h-auto">
-    <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 4" class="w-48 h-auto">
+    <img src="Client/app/assets/screenshots/2.png" alt="Screenshot 3" class="w-full h-auto">
+    <img src="Client/app/assets/screenshots/3.png" alt="Screenshot 4" class="w-full h-auto">
+    <img src="Client/app/assets/screenshots/4.png" alt="Screenshot 4" class="w-full h-auto">
+    <img src="Client/app/assets/screenshots/5.png" alt="Screenshot 4" class="w-full h-auto">
+    <img src="Client/app/assets/screenshots/6.png" alt="Screenshot 4" class="w-full h-auto">
+    <img src="Client/app/assets/screenshots/7.png" alt="Screenshot 4" class="w-full h-auto">  
   </div>
 </div>
 
