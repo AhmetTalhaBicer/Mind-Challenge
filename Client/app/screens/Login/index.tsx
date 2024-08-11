@@ -49,7 +49,6 @@ const LoginForm = () => {
     if (showSuccessAnimation) {
       const timer = setTimeout(() => {
         setShowSuccessAnimation(false);
-        navigation.navigate("MainTabs" as never);
       }, 3000); // 3 saniye boyunca animasyon gösterilir
       return () => clearTimeout(timer);
     }
@@ -82,6 +81,7 @@ const LoginForm = () => {
               autoPlay
               loop={false}
               style={styles.successAnimation}
+              onAnimationFinish={() => navigation.navigate("MainTabs" as never)}
             />
           </View>
         ) : (

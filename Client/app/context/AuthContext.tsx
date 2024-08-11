@@ -94,7 +94,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         const userData = response.data.result.user;
         const profilePictureUrl = `${baseURL}/profile_pics/${userData.profilePicture}`;
         await AsyncStorage.setItem("token", token);
-        setIsAuthenticated(true);
         setUser({
           userId: userData.userId,
           username: userData.username,
