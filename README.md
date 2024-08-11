@@ -31,16 +31,37 @@ A mobile quiz application where users can participate in quizzes across various 
 ## 🖼️ Screenshots
 
 <div align="center">
-  <img src="Client/app/assets/screenshots/1.png" alt="Home Screen" width="30%" style="margin-right: 10px;">
-  <img src="Client/app/assets/screenshots/2.png" alt="Category Selection" width="30%" style="margin-right: 10px;">
-  <img src="Client/app/assets/screenshots/3.png" alt="Quiz Screen" width="30%" style="margin-right: 10px;">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="Client/app/assets/screenshots/1.png" alt="Home Screen" width="200px" style="border-radius: 8px;">
+        <br><b>Home Screen</b>
+      </td>
+      <td align="center">
+        <img src="Client/app/assets/screenshots/2.png" alt="Category Selection" width="200px" style="border-radius: 8px;">
+        <br><b>Category Selection</b>
+      </td>
+      <td align="center">
+        <img src="Client/app/assets/screenshots/3.png" alt="Quiz Screen" width="200px" style="border-radius: 8px;">
+        <br><b>Quiz Screen</b>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="Client/app/assets/screenshots/4.png" alt="Leaderboard" width="200px" style="border-radius: 8px;">
+        <br><b>Leaderboard</b>
+      </td>
+      <td align="center">
+        <img src="Client/app/assets/screenshots/5.png" alt="Profile Management" width="200px" style="border-radius: 8px;">
+        <br><b>Profile Management</b>
+      </td>
+      <td align="center">
+        <img src="Client/app/assets/screenshots/6.png" alt="Rewards & Badges" width="200px" style="border-radius: 8px;">
+        <br><b>Rewards & Badges</b>
+      </td>
+    </tr>
+  </table>
 </div>
-<div align="center" style="margin-top: 20px;">
-  <img src="Client/app/assets/screenshots/4.png" alt="Leaderboard" width="30%" style="margin-right: 10px;">
-  <img src="Client/app/assets/screenshots/5.png" alt="Profile Management" width="30%" style="margin-right: 10px;">
-  <img src="Client/app/assets/screenshots/6.png" alt="Rewards & Badges" width="30%">
-</div>
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
