@@ -30,24 +30,16 @@ A mobile quiz application where users can participate in quizzes across various 
 
 ## 🖼️ Screenshots
 
-
-<br>
-
-<div class="grid grid-cols-2 gap-4">
-  <div>
-    <img src="./" alt="Screenshot 1" class="w-full h-auto">
-  </div>
-  <div>
-    <img src="Client/app/assets/screenshots/1.png" alt="Screenshot 2" class="w-full h-auto">
-    <img src="Client/app/assets/screenshots/2.png" alt="Screenshot 3" class="w-full h-auto">
-    <img src="Client/app/assets/screenshots/3.png" alt="Screenshot 4" class="w-full h-auto">
-    <img src="Client/app/assets/screenshots/4.png" alt="Screenshot 4" class="w-full h-auto">
-    <img src="Client/app/assets/screenshots/5.png" alt="Screenshot 4" class="w-full h-auto">
-    <img src="Client/app/assets/screenshots/6.png" alt="Screenshot 4" class="w-full h-auto">
-    <img src="Client/app/assets/screenshots/7.png" alt="Screenshot 4" class="w-full h-auto">  
-  </div>
+<div align="center">
+  <img src="Client/app/assets/screenshots/1.png" alt="Home Screen" width="30%" style="margin-right: 10px;">
+  <img src="Client/app/assets/screenshots/2.png" alt="Category Selection" width="30%" style="margin-right: 10px;">
+  <img src="Client/app/assets/screenshots/3.png" alt="Quiz Screen" width="30%" style="margin-right: 10px;">
 </div>
-
+<div align="center" style="margin-top: 20px;">
+  <img src="Client/app/assets/screenshots/4.png" alt="Leaderboard" width="30%" style="margin-right: 10px;">
+  <img src="Client/app/assets/screenshots/5.png" alt="Profile Management" width="30%" style="margin-right: 10px;">
+  <img src="Client/app/assets/screenshots/6.png" alt="Rewards & Badges" width="30%">
+</div>
 
 ## 🤝 Contributing
 
