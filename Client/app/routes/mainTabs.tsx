@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 function MainTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home Screen"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: "#3CADC8",
         tabBarInactiveTintColor: "#B0B0B0",
@@ -28,7 +28,7 @@ function MainTabs() {
       }}
     >
       <Tab.Screen
-        name="Home Screen"
+        name="Home"
         component={Home}
         options={{
           headerShown: false,
@@ -42,7 +42,7 @@ function MainTabs() {
         }}
       />
       <Tab.Screen
-        name="Leaderboard Screen"
+        name="Leaderboard"
         component={LeaderboardScreen}
         options={{
           headerShown: false,

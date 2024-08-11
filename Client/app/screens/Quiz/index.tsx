@@ -176,7 +176,7 @@ const QuizScreen = () => {
           <TouchableOpacity
             style={styles.restartButton}
             onPress={() => {
-              navigation.navigate("Home Screen" as never);
+              navigation.navigate("Home" as never);
             }}
           >
             <Text style={styles.restartButtonText}>Go to Categories</Text>

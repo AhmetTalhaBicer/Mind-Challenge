@@ -140,6 +140,30 @@ namespace Server.Auth.Controllers
             }
         }
 
+        // Belirli Bir Kullanıcıyı Silme
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            try
+            {
+                await _userServices.DeleteUser(userId);
+                return Ok(new
+                {
+                    success = true,
+                    message = "User deleted successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Failed to delete user.",
+                    error = ex.Message
+                });
+            }
+        }
+
         // Kullanıcı Şifresi Değiştirme
         [HttpPost("change-password/{userId}")]
         public async Task<IActionResult> ChangePassword(int userId, [FromBody] UserChangePasswordDTO userChangePasswordDTO)

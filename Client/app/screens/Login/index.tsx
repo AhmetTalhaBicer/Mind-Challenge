@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import {
   View,
@@ -45,15 +45,21 @@ const LoginForm = () => {
     },
   });
 
+  useEffect(() => {
+    if (showSuccessAnimation) {
+      const timer = setTimeout(() => {
+        setShowSuccessAnimation(false);
+        navigation.navigate("MainTabs" as never);
+      }, 3000); // 3 saniye boyunca animasyon gösterilir
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessAnimation]);
+
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
       setLoading(true);
       await handleLogin(data);
       setShowSuccessAnimation(true);
-      setTimeout(() => {
-        setShowSuccessAnimation(false);
-        navigation.navigate("MainTabs" as never);
-      }, 3000);
     } catch (error) {
       console.error("Login error:", error);
       Toast.show({

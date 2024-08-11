@@ -28,15 +28,24 @@ const LeaderList: React.FC<LeaderListProps> = ({ categoryId }) => {
 
     const fetchTopListLeaders = async () => {
       try {
-        let userTopStatistics: UserTotalPointsDTO[] = [];
         const response = await getUserStatisticsTotalPoints();
-        userTopStatistics = response.data.result;
-        userTopStatistics = userTopStatistics.sort(
-          (a: UserTotalPointsDTO, b: UserTotalPointsDTO) =>
-            b.totalPoints - a.totalPoints
-        );
+        const userTopStatistics = response.data.result;
 
-        const sortedLeaders = userTopStatistics.slice(0, 5); // Taking the top 5
+        const userMap = new Map<string, UserTotalPointsDTO>();
+
+        userTopStatistics.forEach((user) => {
+          if (
+            !userMap.has(user.username) ||
+            userMap.get(user.username)!.totalPoints < user.totalPoints
+          ) {
+            userMap.set(user.username, user);
+          }
+        });
+
+        const sortedLeaders = Array.from(userMap.values())
+          .sort((a, b) => b.totalPoints - a.totalPoints)
+          .slice(0, 5); // Taking the top 5
+
         setLeaders(sortedLeaders);
       } catch (error) {
         console.error("Failed to fetch user statistics", error);
@@ -45,15 +54,24 @@ const LeaderList: React.FC<LeaderListProps> = ({ categoryId }) => {
 
     const fetchCategoryLeaders = async () => {
       try {
-        let userStatistics: UserStatisticsDTO[] = [];
         const response = await getUserStatisticsByCategoryId(categoryId);
-        userStatistics = response.data.result;
-        userStatistics = userStatistics.sort(
-          (a: UserStatisticsDTO, b: UserStatisticsDTO) =>
-            b.categoryPoints - a.categoryPoints
-        );
+        const userStatistics = response.data.result;
 
-        const sortedLeaders = userStatistics.slice(0, 5); // Taking the top 5
+        const userMap = new Map<string, UserStatisticsDTO>();
+
+        userStatistics.forEach((user) => {
+          if (
+            !userMap.has(user.username) ||
+            userMap.get(user.username)!.categoryPoints < user.categoryPoints
+          ) {
+            userMap.set(user.username, user);
+          }
+        });
+
+        const sortedLeaders = Array.from(userMap.values())
+          .sort((a, b) => b.categoryPoints - a.categoryPoints)
+          .slice(0, 5); // Taking the top 5
+
         setLeaders(sortedLeaders);
       } catch (error) {
         console.error("Failed to fetch user statistics", error);
@@ -137,16 +155,14 @@ const LeaderList: React.FC<LeaderListProps> = ({ categoryId }) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    marginBottom: 8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 17,
     textAlign: "center",
     fontWeight: "bold",
     fontFamily: "Roboto-Serif",
     letterSpacing: 2,
     color: "#fff",
-    marginBottom: 5,
   },
   card: {
     marginVertical: 5,

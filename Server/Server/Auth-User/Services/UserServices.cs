@@ -68,6 +68,20 @@ namespace Server.Auth.Services
             await _context.SaveChangesAsync();
         }
 
+        //Belirli bir kullanıcıyı siler
+        public async Task DeleteUser(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+
         // Kullanıcının şifresini değiştirir.
         public async Task ChangePassword(int userId, UserChangePasswordDTO userChangePasswordDTO)
         {
