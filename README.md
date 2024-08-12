@@ -18,6 +18,7 @@ A mobile quiz application where users can participate in quizzes across various 
 - 🖼️ **Frontend**: [React Native](https://reactnative.dev/) with [React Native Paper](https://callstack.github.io/react-native-paper/) for UI components.
 - 🌐 **Backend**: [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0) with JWT-based authentication.
 - 🗃️ **Database**: [PostgreSQL](https://www.postgresql.org/) for storing user data, quiz questions, and leaderboard information.
+- 📊 **Trivia API**: Used for fetching quiz questions across various categories and difficulty levels.
 
 ## 🚀 Installation
 
@@ -26,7 +27,6 @@ A mobile quiz application where users can participate in quizzes across various 
 - 🟢 Node.js and npm
 - 🟣 .NET Core SDK
 - 🟡 PostgreSQL
-
 
 ## 🖼️ Screenshots
 
@@ -86,3 +86,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📧 Contact
 
 For any inquiries, please contact Ahmet Talha Biçer at [a.thlbcr@gmail.com](a.thlbcr@gmail.com).
+
