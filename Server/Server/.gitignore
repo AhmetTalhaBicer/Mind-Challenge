@@ -490,3 +490,8 @@ $RECYCLE.BIN/
 
 # content below from:
 wwwroot/profile_pics/
+
+
+# Ignore .github and .vs directories
+.github/
+.vs/
