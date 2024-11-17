@@ -1,6 +1,0 @@
-@Server_HostAddress = http://localhost:5129
-
-GET {{Server_HostAddress}}/mindchallenge/
-Accept: application/json
-
-###
