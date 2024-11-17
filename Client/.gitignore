@@ -22,6 +22,3 @@ expo-env.d.ts
 # Secrets
 .env
 
-# Ignore .github and .vs directories
-.github/
-.vs/
